@@ -6,7 +6,7 @@ const BackgroundMusic = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
-    const audio = new Audio("/background_music/Kina Grannis ft. Imaginary Future - I Will Spend My Whole Life Loving You (lyrics).mp3")
+    const audio = new Audio("/background+_music/Kina Grannis ft. Imaginary Future - I Will Spend My Whole Life Loving You (lyrics).mp3")
     audio.loop = true
     audio.volume = 0.5
     audioRef.current = audio

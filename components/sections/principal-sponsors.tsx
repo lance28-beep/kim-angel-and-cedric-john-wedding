@@ -1,5 +1,11 @@
 "use client"
 
+import { useEffect, useMemo, useState } from "react"
+
+interface PrincipalSponsor {
+  MalePrincipalSponsor: string
+  FemalePrincipalSponsor: string
+}
 
 export function PrincipalSponsors() {
   // Helper component for elegant section titles
@@ -58,34 +64,33 @@ export function PrincipalSponsors() {
     )
   }
 
-  // Parse sponsor data from the provided list
-  const sponsors = [
-    { name: "Honorable Mayor Roderick Awingan", spouse: "Mrs. November Awingan" },
-    { name: "Engr. Roy Kepes", spouse: "Vice Gov. Mary Rose Kepes Fongwan" },
-    { name: "Councilor Nestor Fongwan, Jr.", spouse: "Mrs. Alda Unidad" },
-    { name: "Rev. Pastor Cresente Faustino", spouse: "Mrs. Cecilia Panlilio" },
-    { name: "Kagawad Joseph Aliado", spouse: "Mrs. Araceli Pitogo" },
-    { name: "Mr. Pio Macliing", spouse: "Dra. Edna Coloma" },
-    { name: "Mr. Cresencio Francisco", spouse: "Dr. Editha Francisco" },
-    { name: "Mr. Aurelio Sab-it", spouse: "Mrs. Ester Sab-it" },
-    { name: "Mr. Fabian Dupiano", spouse: "Mrs. Mary Christine Dupiano" },
-    { name: "Mr. Roberto Dosdos", spouse: "Mrs. Angelica Dosdos" },
-    { name: "Mr. George Sacla", spouse: "Mrs. Minda De Bolt Sacla" },
-    { name: "Mr. Elmo Casallo", spouse: "Mrs. Nora Casallo" },
-    { name: "Engr. Jimmy Atayoc Sr", spouse: "Mrs. Mercedes Atayoc" },
-    { name: "Mr. Tomas Moyongan", spouse: "Mrs. Betty Moyongan" },
-    { name: "Mr. Roger Balantin", spouse: "Mrs. Delia Balantin" },
-    { name: "Mr. Jony Balao", spouse: "Mrs. Conception Balao" },
-    { name: "Mr. Pampilo Balajadia", spouse: "Mrs. Angela Balajadia" },
-    { name: "Mr. Junvic Suguinsin", spouse: "Mrs. Nida Saguinsin" },
-    { name: "Mr. Alan M. Serduar", spouse: "Mrs. Oliva Serduar" },
-    { name: "Mr. Peter Ticbaen", spouse: "Mrs. Carina C. Watanabe" },
-    { name: "Mr. Salino Dosdos Jr", spouse: "Mrs. Angelica Balajadia" },
-    { name: "Mr. Miguel Franco", spouse: "Mrs. Marga Sison" },
-    { name: "Mr. Eduardo Dosdos", spouse: "Mrs. Lavenia Inson" },
-    { name: "Mr. Ronald Plumos", spouse: "Mrs. Gina Guiang" },
-    { name: "Mr. Roger Mateo", spouse: "Mrs. Reine Bernadeth Bolano" },
-  ]
+  // Remote data state
+  const [sponsors, setSponsors] = useState<PrincipalSponsor[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  const fetchSponsors = async () => {
+    setIsLoading(true)
+    try {
+      const res = await fetch("/api/principal-sponsor", { cache: "no-store" })
+      if (!res.ok) throw new Error("Failed to load principal sponsors")
+      const data: PrincipalSponsor[] = await res.json()
+      setSponsors(data)
+    } catch (e: any) {
+      console.error(e)
+      setError(e?.message || "Failed to load principal sponsors")
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchSponsors()
+  }, [])
+
+  // Split columns
+  const maleSponsors = useMemo(() => sponsors.map((s) => s.MalePrincipalSponsor).filter(Boolean), [sponsors])
+  const femaleSponsors = useMemo(() => sponsors.map((s) => s.FemalePrincipalSponsor).filter(Boolean), [sponsors])
 
   return (
     <section 
@@ -157,26 +162,45 @@ export function PrincipalSponsors() {
 
         {/* Sponsors in Two-Column Layout */}
         <div className="max-w-5xl mx-auto">
-          <TwoColumnLayout singleTitle="Principal Sponsors">
-            <div className="space-y-3">
-              {sponsors.map((sponsor, idx) => (
-                <div key={idx}>
-                  <NameItem name={sponsor.name} />
-                </div>
-              ))}
+          {isLoading ? (
+            <div className="text-center py-12">
+              <p className="text-[#FFF6E7] font-serif">Loading sponsors...</p>
             </div>
-            <div className="space-y-3">
-              {sponsors.map((sponsor, idx) => (
-                <div key={idx}>
-                  {sponsor.spouse ? (
-                    <NameItem name={sponsor.spouse} />
-                  ) : (
-                    <div className="py-2 sm:py-2.5"></div>
-                  )}
-                </div>
-              ))}
+          ) : error ? (
+            <div className="text-center py-12">
+              <p className="text-red-400 font-serif">{error}</p>
+              <button onClick={fetchSponsors} className="underline text-[#BB8A3D]">Try again</button>
             </div>
-          </TwoColumnLayout>
+          ) : (
+            <TwoColumnLayout leftTitle="Male Principal Sponsors" rightTitle="Female Principal Sponsors">
+              <div className="space-y-3">
+                {maleSponsors.length === 0 ? (
+                  <div className="py-2 sm:py-2.5">
+                    <p className="text-[#FFF6E7]/70 text-sm text-center">No entries</p>
+                  </div>
+                ) : (
+                  maleSponsors.map((name, idx) => (
+                    <div key={idx}>
+                      <NameItem name={name} />
+                    </div>
+                  ))
+                )}
+              </div>
+              <div className="space-y-3">
+                {femaleSponsors.length === 0 ? (
+                  <div className="py-2 sm:py-2.5">
+                    <p className="text-[#FFF6E7]/70 text-sm text-center">No entries</p>
+                  </div>
+                ) : (
+                  femaleSponsors.map((name, idx) => (
+                    <div key={idx}>
+                      <NameItem name={name} />
+                    </div>
+                  ))
+                )}
+              </div>
+            </TwoColumnLayout>
+          )}
         </div>
       </div>
     </section>

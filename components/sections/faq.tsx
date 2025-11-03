@@ -232,11 +232,11 @@ export function FAQ() {
                                 <>
                                   {item.answer.split("[RSVP_LINK]")[0]}
                                   <a 
-                                    href="#rsvp" 
+                                    href="#guest-list" 
                                     className="text-[#BB8A3D] underline font-semibold hover:text-[#CDAC77] transition-colors"
                                     onClick={(e) => {
                                       e.preventDefault()
-                                      document.getElementById('rsvp')?.scrollIntoView({ behavior: 'smooth' })
+                                      document.getElementById('guest-list')?.scrollIntoView({ behavior: 'smooth' })
                                     }}
                                   >
                                     {item.answer.match(/\[RSVP_LINK\](.*?)\[\/RSVP_LINK\]/)?.[1]}

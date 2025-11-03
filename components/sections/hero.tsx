@@ -141,7 +141,7 @@ export function Hero() {
               Our Love Story
             </Button>
             <Button
-              href="#rsvp"
+              href="#guest-list"
               variant="outline"
               className="min-w-[140px] sm:min-w-[160px] md:min-w-[180px] px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base md:text-lg font-semibold tracking-wide rounded-lg transition-all duration-500 ease-in-out bg-[#BB8A3D] border-2 border-[#FFF6E7] text-white text-center shadow-md hover:shadow-lg hover:scale-[1.02] hover:bg-[#CDAC77] hover:border-[#FFF6E7] hover:text-white active:scale-[0.98]"
             >

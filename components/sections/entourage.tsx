@@ -1,7 +1,84 @@
 "use client"
 
+import { useState, useEffect, useMemo } from "react"
+import { Loader2, Users } from "lucide-react"
+
+interface EntourageMember {
+  Name: string
+  RoleCategory: string
+  RoleTitle: string
+  Email: string
+}
+
+const ROLE_CATEGORY_ORDER = [
+  "The Couple",
+  "Parents of the Bride",
+  "Parents of the Groom",
+  "Maid/Matron of Honor",
+  "Best Man",
+  "Candle Sponsors",
+  "Veil Sponsors",
+  "Cord Sponsors",
+  "Bridesmaids",
+  "Groomsmen",
+  "Flower Girls",
+  "Ring/Coin Bearers",
+]
 
 export function Entourage() {
+  const [entourage, setEntourage] = useState<EntourageMember[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  const fetchEntourage = async () => {
+    setIsLoading(true)
+    try {
+      const response = await fetch("/api/entourage", { cache: "no-store" })
+      if (!response.ok) {
+        throw new Error("Failed to fetch entourage")
+      }
+      const data: EntourageMember[] = await response.json()
+      setEntourage(data)
+    } catch (error: any) {
+      console.error("Failed to load entourage:", error)
+      setError(error?.message || "Failed to load entourage")
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchEntourage()
+
+    // Set up auto-refresh listener for dashboard updates
+    const handleEntourageUpdate = () => {
+      setTimeout(() => {
+        fetchEntourage()
+      }, 1000)
+    }
+
+    window.addEventListener("entourageUpdated", handleEntourageUpdate)
+
+    return () => {
+      window.removeEventListener("entourageUpdated", handleEntourageUpdate)
+    }
+  }, [])
+
+  // Group entourage by role category
+  const grouped = useMemo(() => {
+    const grouped: Record<string, EntourageMember[]> = {}
+    
+    entourage.forEach((member) => {
+      const category = member.RoleCategory || "Other"
+      if (!grouped[category]) {
+        grouped[category] = []
+      }
+      grouped[category].push(member)
+    })
+    
+    return grouped
+  }, [entourage])
+
   // Helper component for elegant section titles
   const SectionTitle = ({ children }: { children: React.ReactNode }) => (
     <h3 className="text-xl sm:text-2xl md:text-3xl font-serif font-semibold text-[#BB8A3D] mb-4 sm:mb-6 text-center tracking-wide">
@@ -9,10 +86,13 @@ export function Entourage() {
     </h3>
   )
 
-  // Helper component for name items
-  const NameItem = ({ name }: { name: string }) => (
-    <div className="flex items-center justify-center py-2 sm:py-2.5">
-      <p className="text-[#FFF6E7] text-sm sm:text-base font-light text-center">{name}</p>
+  // Helper component for name items with role title
+  const NameItem = ({ member }: { member: EntourageMember }) => (
+    <div className="flex flex-col items-center justify-center py-2 sm:py-2.5">
+      <p className="text-[#FFF6E7] text-base sm:text-lg font-medium text-center">{member.Name}</p>
+      {member.RoleTitle && (
+        <p className="text-[#CDAC77] text-xs sm:text-sm font-light text-center mt-1">{member.RoleTitle}</p>
+      )}
     </div>
   )
 
@@ -131,156 +211,242 @@ export function Entourage() {
       {/* Enhanced entourage content */}
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
         <div className="max-w-5xl mx-auto">
-          {/* The Couple */}
-          <TwoColumnLayout singleTitle="The Couple" centerContent={true}>
-            <div className="flex flex-col items-center">
-              <p className="text-[#CDAC77] text-xs sm:text-sm mb-1 font-light">Bride</p>
-              <p className="text-[#FFF6E7] text-base sm:text-lg font-medium">Erda Ricohermoso</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <p className="text-[#CDAC77] text-xs sm:text-sm mb-1 font-light">Groom</p>
-              <p className="text-[#FFF6E7] text-base sm:text-lg font-medium">Russell Ticbaen</p>
-            </div>
-          </TwoColumnLayout>
-
-          {/* Divider */}
-          <div className="flex justify-center py-4 mb-8">
-            <div className="h-px w-32 sm:w-48 bg-gradient-to-r from-transparent via-[#BB8A3D]/60 to-transparent"></div>
-          </div>
-
-          {/* Parents of the Bride and Groom */}
-          <TwoColumnLayout leftTitle="Parents of the Bride" rightTitle="Parents of the Groom">
-            <div className="space-y-3">
-              <NameItem name="Federico Ricohermoso (+)" />
-              <NameItem name="Eloida Ricohermoso" />
-            </div>
-            <div className="space-y-3">
-              <NameItem name="Valentine Moyongan Ticbaen (+)" />
-              <NameItem name="Felicitas Ticbaen" />
-            </div>
-          </TwoColumnLayout>
-
-          {/* Divider */}
-          <div className="flex justify-center py-4 mb-8">
-            <div className="h-px w-32 sm:w-48 bg-gradient-to-r from-transparent via-[#BB8A3D]/60 to-transparent"></div>
-          </div>
-
-          {/* Maid/Matron of Honor and Best Man */}
-          <TwoColumnLayout leftTitle="Maid/Matron of Honor" rightTitle="Best Man">
-            <div>
-              <NameItem name="Imeeliza Timpug" />
-            </div>
-            <div>
-              <NameItem name="Red Casallo" />
-            </div>
-          </TwoColumnLayout>
-
-          {/* Divider */}
-          <div className="flex justify-center py-4 mb-8">
-            <div className="h-px w-32 sm:w-48 bg-gradient-to-r from-transparent via-[#BB8A3D]/60 to-transparent"></div>
-          </div>
-
-          {/* Bridesmaids and Groomsmen */}
-          <TwoColumnLayout leftTitle="Bridesmaids" rightTitle="Groomsmen">
-            <div className="space-y-3">
-              {[
-                "Thea Lynn Dela Cruz",
-                "Keara Zane A Cariño",
-                "Fiona Padallan",
-                "Lorna Ladisla",
-                "Carmen Pascual",
-                "Ciodie Manota",
-              ].map((name, idx) => (
-                <NameItem key={idx} name={name} />
-              ))}
-            </div>
-            <div className="space-y-3">
-              {[
-                "Myric Mateo",
-                "Jayson Torquiano",
-                "Jenoh Egino",
-                "Vincent Saguinsin",
-                "Frederick Manota",
-                "Emerson Sulit",
-              ].map((name, idx) => (
-                <NameItem key={idx} name={name} />
-              ))}
-            </div>
-          </TwoColumnLayout>
-
-          {/* Divider */}
-          <div className="flex justify-center py-4 mb-8">
-            <div className="h-px w-32 sm:w-48 bg-gradient-to-r from-transparent via-[#BB8A3D]/60 to-transparent"></div>
-          </div>
-
-          {/* Candle Sponsors and Veil Sponsors */}
-          <TwoColumnLayout leftTitle="Candle Sponsors" rightTitle="Veil Sponsors">
-            <div className="space-y-3">
-              <NameItem name="Romela Tolentino" />
-              <NameItem name="Noah Alcaria" />
-            </div>
-            <div className="space-y-3">
-              <NameItem name="Carla Vanessa Tabilin" />
-              <NameItem name="Jervin Garcia" />
-            </div>
-          </TwoColumnLayout>
-
-          {/* Cord Sponsors */}
-          <TwoColumnLayout singleTitle="Cord Sponsors" centerContent={true}>
-            <div>
-              <NameItem name="Emmalyn Lipio" />
-            </div>
-            <div>
-              <NameItem name="Caughvan Faustino" />
-            </div>
-          </TwoColumnLayout>
-
-          {/* Divider */}
-          <div className="flex justify-center py-4 mb-8">
-            <div className="h-px w-32 sm:w-48 bg-gradient-to-r from-transparent via-[#BB8A3D]/60 to-transparent"></div>
-          </div>
-
-          {/* Flower Girls */}
-          <TwoColumnLayout singleTitle="Flower Girls" centerContent={true}>
-            {[
-              "Kirsten Elija Leyson",
-              "Blake Juan",
-              "Reign Arastel Rivera",
-              "Paige Yael Ticbaen (Little Bride)",
-            ].map((name, idx) => (
-              <div key={idx}>
-                <NameItem name={name} />
-              </div>
-            ))}
-          </TwoColumnLayout>
-
-          {/* Ring/Coin Bearers */}
-          <TwoColumnLayout singleTitle="Ring/Coin Bearers" centerContent={true}>
-            {[
-              "Khaleb Dwayne M. Beltran",
-              "Lucas Rhaiden Beltran",
-              "Dean James Ticbaen",
-            ].map((name, idx) => (
-              <div key={idx}>
-                <NameItem name={name} />
-              </div>
-            ))}
-          </TwoColumnLayout>
-
-          {/* Divider */}
-          <div className="flex justify-center py-4 mb-8">
-            <div className="h-px w-32 sm:w-48 bg-gradient-to-r from-transparent via-[#BB8A3D]/60 to-transparent"></div>
-          </div>
-
-          {/* Readers */}
-          {/* <div className="mb-8 sm:mb-10 md:mb-12">
-            <SectionTitle>Readers (1st Reading, Responsorial, Prayers of the Faithful)</SectionTitle>
-            <div className="flex justify-center">
-              <div className="w-full max-w-md">
-                <NameItem name="Mrs. Alda Unidad" />
+          {isLoading ? (
+            <div className="flex items-center justify-center py-24">
+              <div className="flex flex-col items-center gap-4">
+                <Loader2 className="h-12 w-12 animate-spin text-[#BB8A3D]" />
+                <span className="text-[#FFF6E7] font-serif text-lg">Loading entourage...</span>
               </div>
             </div>
-          </div> */}
+          ) : error ? (
+            <div className="flex items-center justify-center py-24">
+              <div className="text-center">
+                <p className="text-red-500 font-serif text-lg mb-2">{error}</p>
+                <button
+                  onClick={fetchEntourage}
+                  className="text-[#BB8A3D] hover:text-[#CDAC77] font-serif underline"
+                >
+                  Try again
+                </button>
+              </div>
+            </div>
+          ) : entourage.length === 0 ? (
+            <div className="text-center py-24">
+              <Users className="h-16 w-16 text-[#BB8A3D]/50 mx-auto mb-4" />
+              <p className="text-[#FFF6E7] font-serif text-lg">No entourage members yet</p>
+            </div>
+          ) : (
+            <>
+              {ROLE_CATEGORY_ORDER.map((category, categoryIndex) => {
+                const members = grouped[category] || []
+                
+                if (members.length === 0) return null
+
+                // Special handling for The Couple - display Bride and Groom side by side
+                if (category === "The Couple") {
+                  const bride = members.find(m => m.RoleTitle?.toLowerCase().includes('bride'))
+                  const groom = members.find(m => m.RoleTitle?.toLowerCase().includes('groom'))
+                  
+                  return (
+                    <div key={category}>
+                      {categoryIndex > 0 && (
+                        <div className="flex justify-center py-4 mb-8">
+                          <div className="h-px w-32 sm:w-48 bg-gradient-to-r from-transparent via-[#BB8A3D]/60 to-transparent"></div>
+                        </div>
+                      )}
+                      <TwoColumnLayout singleTitle="The Couple" centerContent={true}>
+                        <div className="flex flex-col items-center">
+                          <p className="text-[#CDAC77] text-xs sm:text-sm mb-1 font-light">Bride</p>
+                          {bride && (
+                            <p className="text-[#FFF6E7] text-base sm:text-lg font-medium">{bride.Name}</p>
+                          )}
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <p className="text-[#CDAC77] text-xs sm:text-sm mb-1 font-light">Groom</p>
+                          {groom && (
+                            <p className="text-[#FFF6E7] text-base sm:text-lg font-medium">{groom.Name}</p>
+                          )}
+                        </div>
+                      </TwoColumnLayout>
+                    </div>
+                  )
+                }
+
+                // Special handling for Parents sections - combine into single two-column layout
+                if (category === "Parents of the Bride" || category === "Parents of the Groom") {
+                  // Get both parent groups
+                  const parentsBride = grouped["Parents of the Bride"] || []
+                  const parentsGroom = grouped["Parents of the Groom"] || []
+                  
+                  // Only render once (when processing "Parents of the Bride")
+                  if (category === "Parents of the Bride") {
+                    return (
+                      <div key="Parents">
+                        {categoryIndex > 0 && (
+                          <div className="flex justify-center py-4 mb-8">
+                            <div className="h-px w-32 sm:w-48 bg-gradient-to-r from-transparent via-[#BB8A3D]/60 to-transparent"></div>
+                          </div>
+                        )}
+                        <TwoColumnLayout leftTitle="Parents of the Bride" rightTitle="Parents of the Groom">
+                          <div className="space-y-3">
+                            {parentsBride.map((member, idx) => (
+                              <NameItem key={idx} member={member} />
+                            ))}
+                          </div>
+                          <div className="space-y-3">
+                            {parentsGroom.map((member, idx) => (
+                              <NameItem key={idx} member={member} />
+                            ))}
+                          </div>
+                        </TwoColumnLayout>
+                      </div>
+                    )
+                  }
+                  // Skip rendering for "Parents of the Groom" since it's already rendered above
+                  return null
+                }
+
+                // Special handling for Maid/Matron of Honor and Best Man - combine into single two-column layout
+                if (category === "Maid/Matron of Honor" || category === "Best Man") {
+                  // Get both honor attendant groups
+                  const maidOfHonor = grouped["Maid/Matron of Honor"] || []
+                  const bestMan = grouped["Best Man"] || []
+                  
+                  // Only render once (when processing "Maid/Matron of Honor")
+                  if (category === "Maid/Matron of Honor") {
+                    return (
+                      <div key="HonorAttendants">
+                        {categoryIndex > 0 && (
+                          <div className="flex justify-center py-4 mb-8">
+                            <div className="h-px w-32 sm:w-48 bg-gradient-to-r from-transparent via-[#BB8A3D]/60 to-transparent"></div>
+                          </div>
+                        )}
+                        <TwoColumnLayout leftTitle="Maid/Matron of Honor" rightTitle="Best Man">
+                          <div className="space-y-3">
+                            {maidOfHonor.map((member, idx) => (
+                              <NameItem key={idx} member={member} />
+                            ))}
+                          </div>
+                          <div className="space-y-3">
+                            {bestMan.map((member, idx) => (
+                              <NameItem key={idx} member={member} />
+                            ))}
+                          </div>
+                        </TwoColumnLayout>
+                      </div>
+                    )
+                  }
+                  // Skip rendering for "Best Man" since it's already rendered above
+                  return null
+                }
+
+                // Special handling for Bridesmaids and Groomsmen - combine into single two-column layout
+                if (category === "Bridesmaids" || category === "Groomsmen") {
+                  // Get both bridal party groups
+                  const bridesmaids = grouped["Bridesmaids"] || []
+                  const groomsmen = grouped["Groomsmen"] || []
+                  
+                  // Only render once (when processing "Bridesmaids")
+                  if (category === "Bridesmaids") {
+                    return (
+                      <div key="BridalParty">
+                        {categoryIndex > 0 && (
+                          <div className="flex justify-center py-4 mb-8">
+                            <div className="h-px w-32 sm:w-48 bg-gradient-to-r from-transparent via-[#BB8A3D]/60 to-transparent"></div>
+                          </div>
+                        )}
+                        <TwoColumnLayout leftTitle="Bridesmaids" rightTitle="Groomsmen">
+                          <div className="space-y-3">
+                            {bridesmaids.map((member, idx) => (
+                              <NameItem key={idx} member={member} />
+                            ))}
+                          </div>
+                          <div className="space-y-3">
+                            {groomsmen.map((member, idx) => (
+                              <NameItem key={idx} member={member} />
+                            ))}
+                          </div>
+                        </TwoColumnLayout>
+                      </div>
+                    )
+                  }
+                  // Skip rendering for "Groomsmen" since it's already rendered above
+                  return null
+                }
+
+                // Special handling for Candle/Veil Sponsors sections - combine into single two-column layout
+                if (category === "Candle Sponsors" || category === "Veil Sponsors") {
+                  // Get both sponsor groups
+                  const candleSponsors = grouped["Candle Sponsors"] || []
+                  const veilSponsors = grouped["Veil Sponsors"] || []
+                  
+                  // Only render once (when processing "Candle Sponsors")
+                  if (category === "Candle Sponsors") {
+                    return (
+                      <div key="Sponsors">
+                        {categoryIndex > 0 && (
+                          <div className="flex justify-center py-4 mb-8">
+                            <div className="h-px w-32 sm:w-48 bg-gradient-to-r from-transparent via-[#BB8A3D]/60 to-transparent"></div>
+                          </div>
+                        )}
+                        <TwoColumnLayout leftTitle="Candle Sponsors" rightTitle="Veil Sponsors">
+                          <div className="space-y-3">
+                            {candleSponsors.map((member, idx) => (
+                              <NameItem key={idx} member={member} />
+                            ))}
+                          </div>
+                          <div className="space-y-3">
+                            {veilSponsors.map((member, idx) => (
+                              <NameItem key={idx} member={member} />
+                            ))}
+                          </div>
+                        </TwoColumnLayout>
+                      </div>
+                    )
+                  }
+                  // Skip rendering for "Veil Sponsors" since it's already rendered above
+                  return null
+                }
+
+                // Default: single title, centered content
+                return (
+                  <div key={category}>
+                    {categoryIndex > 0 && (
+                      <div className="flex justify-center py-4 mb-8">
+                        <div className="h-px w-32 sm:w-48 bg-gradient-to-r from-transparent via-[#BB8A3D]/60 to-transparent"></div>
+                      </div>
+                    )}
+                    <TwoColumnLayout singleTitle={category} centerContent={true}>
+                      {members.map((member, idx) => (
+                        <div key={idx}>
+                          <NameItem member={member} />
+                        </div>
+                      ))}
+                    </TwoColumnLayout>
+                  </div>
+                )
+              })}
+              
+              {/* Display any other categories not in the ordered list */}
+              {Object.keys(grouped).filter(cat => !ROLE_CATEGORY_ORDER.includes(cat)).map((category) => {
+                const members = grouped[category]
+                return (
+                  <div key={category}>
+                    <div className="flex justify-center py-4 mb-8">
+                      <div className="h-px w-32 sm:w-48 bg-gradient-to-r from-transparent via-[#BB8A3D]/60 to-transparent"></div>
+                    </div>
+                    <TwoColumnLayout singleTitle={category} centerContent={true}>
+                      {members.map((member, idx) => (
+                        <div key={idx}>
+                          <NameItem member={member} />
+                        </div>
+                      ))}
+                    </TwoColumnLayout>
+                  </div>
+                )
+              })}
+            </>
+          )}
         </div>
       </div>
     </section>

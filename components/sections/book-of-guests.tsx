@@ -1,18 +1,17 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Loader2, Mail, Calendar, MessageSquare, Heart, Sparkles, Star } from "lucide-react"
+import { Loader2, Mail, Calendar, MessageSquare, Heart, Sparkles, Star, User } from "lucide-react"
 
-type GuestEntry = {
-  timestamp: string
-  name: string
-  email: string
-  guests: string
-  message: string
+interface Guest {
+  Name: string
+  Email: string
+  RSVP: string
+  Message: string
 }
 
 export function BookOfGuests() {
-  const [guests, setGuests] = useState<GuestEntry[]>([])
+  const [guests, setGuests] = useState<Guest[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [totalGuests, setTotalGuests] = useState(0)
@@ -32,49 +31,19 @@ export function BookOfGuests() {
     setError(null)
 
     try {
-      const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbxG-WD7rbEJtuI5rgf2bIvisT2sDTkPmvlK1Jlto6w_Yzag9n0CwUL9PwQopSi-ar3pow/exec",
-        { cache: "no-store" }
-      )
+      const response = await fetch("/api/guests", { cache: "no-store" })
 
       if (!response.ok) {
         throw new Error("Failed to fetch guest list")
       }
 
-      const data = await response.json()
+      const data: Guest[] = await response.json()
 
-      if (!data || !data.GoogleSheetData) {
-        setGuests([])
-        setTotalGuests(0)
-        return
-      }
-
-      const rows: string[][] = data.GoogleSheetData
-      if (!Array.isArray(rows) || rows.length <= 1) {
-        setGuests([])
-        setTotalGuests(0)
-        return
-      }
-
-      const header = rows[0]
-      const entries = rows.slice(1)
-
-      const guestEntries: GuestEntry[] = entries.map((row) => {
-        const rowObj: Record<string, string> = {}
-        header.forEach((col, i) => {
-          rowObj[col] = row[i] || ""
-        })
-        return {
-          timestamp: rowObj["Timestamp"] || new Date().toISOString(),
-          name: rowObj["Full Name"] || "Guest",
-          email: rowObj["Email"] || "",
-          guests: rowObj["Number Of Guests"] || "1",
-          message: rowObj["Message"] || "",
-        }
-      })
-
-      setGuests(guestEntries)
-      setTotalGuests(guestEntries.reduce((sum, entry) => sum + parseInt(entry.guests), 0))
+      // Filter only attending guests
+      const attendingGuests = data.filter((guest) => guest.RSVP === "Yes")
+      
+      setGuests(attendingGuests)
+      setTotalGuests(attendingGuests.length)
     } catch (error: any) {
       console.error("Failed to load guests:", error)
       setError(error?.message || "Failed to load guest list")
@@ -101,16 +70,6 @@ export function BookOfGuests() {
       window.removeEventListener("rsvpUpdated", handleRsvpUpdate)
     }
   }, [])
-
-  const formatDate = (date: string) => {
-    return new Date(date).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
-    })
-  }
 
   return (
     <div 
@@ -213,7 +172,7 @@ export function BookOfGuests() {
                   </h3>
                 </div>
                 <p className="text-xs sm:text-base md:text-lg text-[#402921]/70 font-lora leading-relaxed">
-                  Thank you to everyone who has RSVP'd! We can't wait to celebrate with you.
+                  Thank you for confirming your RSVP! Your presence means the world to us.
                 </p>
               </div>
             </div>
@@ -271,7 +230,7 @@ export function BookOfGuests() {
                     <div className="mt-4 sm:mt-6 flex justify-center">
                       <div className="inline-flex items-center gap-2 bg-white text-[#402921] rounded-full px-3 sm:px-5 py-1.5 sm:py-2 shadow-md">
                         <Sparkles className="h-4 w-4" />
-                        <span className="text-xs sm:text-sm font-lora">Use the RSVP form above</span>
+                        <span className="text-xs sm:text-sm font-lora">Search your name to RSVP</span>
                       </div>
                     </div>
                   </div>
@@ -297,7 +256,7 @@ export function BookOfGuests() {
                         {/* Avatar */}
                         <div className="relative h-8 w-8 sm:h-12 sm:w-12 flex-shrink-0">
                           <div className="h-full w-full rounded-full bg-gradient-to-br from-[#402921] to-[#583016] text-[#FFF6E7] flex items-center justify-center font-semibold shadow-lg ring-2 ring-white text-xs sm:text-base">
-                            {getInitials(guest.name)}
+                            {getInitials(guest.Name)}
                           </div>
                         </div>
                         
@@ -305,17 +264,15 @@ export function BookOfGuests() {
                         <div className="flex-1 min-w-0">
                           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2">
                             <h4 className="font-lora text-[#402921] text-sm sm:text-xl font-semibold leading-tight transition-colors duration-300 group-hover:text-[#BB8A3D]">
-                              {guest.name}
+                              {guest.Name}
                             </h4>
-                            {/* Guest count badge */}
-                            <div className="bg-gradient-to-r from-[#402921] to-[#583016] text-[#FFF6E7] font-lora px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-semibold shadow-lg inline-flex self-start sm:self-auto">
-                              {guest.guests} {parseInt(guest.guests) === 1 ? "Guest" : "Guests"}
+                          </div>
+                          {guest.Email && guest.Email !== "Pending" && (
+                            <div className="flex items-center text-xs sm:text-sm text-[#402921]/70 mt-0.5 sm:mt-1">
+                              <Mail className="h-2 w-2 sm:h-4 sm:w-4 mr-1 sm:mr-2 text-[#BB8A3D] flex-shrink-0" />
+                              <span className="font-lora break-all truncate text-xs sm:text-sm">{guest.Email}</span>
                             </div>
-                          </div>
-                          <div className="flex items-center text-xs sm:text-sm text-[#402921]/70 mt-0.5 sm:mt-1">
-                            <Mail className="h-2 w-2 sm:h-4 sm:w-4 mr-1 sm:mr-2 text-[#BB8A3D] flex-shrink-0" />
-                            <span className="font-lora break-all truncate text-xs sm:text-sm">{guest.email}</span>
-                          </div>
+                          )}
                         </div>
                       </div>
 
@@ -323,7 +280,7 @@ export function BookOfGuests() {
                       <div className="h-px bg-gradient-to-r from-transparent via-[#BB8A3D]/30 to-transparent" />
 
                       {/* Premium message section */}
-                      {guest.message && (
+                      {guest.Message && (
                         <div className="relative">
                           <div className="bg-gradient-to-r from-[#BB8A3D]/10 to-[#CDAC77]/10 rounded-md sm:rounded-xl p-2 sm:p-4 border-l-2 sm:border-l-4 border-[#BB8A3D]">
                             <div className="flex items-start gap-1 sm:gap-3">
@@ -332,7 +289,7 @@ export function BookOfGuests() {
                               </div>
                               <div className="flex-1">
                                 <p className="text-xs sm:text-base text-[#402921] font-lora leading-relaxed italic">
-                                  "{guest.message}"
+                                  "{guest.Message}"
                                 </p>
                               </div>
                             </div>
@@ -340,14 +297,10 @@ export function BookOfGuests() {
                         </div>
                       )}
 
-                      {/* Footer with timestamp */}
-                      <div className="flex items-center justify-between pt-1 sm:pt-2 border-t border-[#CDAC77]/30">
-                        <div className="text-xs text-[#402921]/70 flex items-center gap-0.5 sm:gap-2">
-                          <Calendar className="h-2 w-2 sm:h-3 sm:w-3 text-[#BB8A3D]" />
-                          <span className="font-lora text-xs">RSVP'd on {formatDate(guest.timestamp)}</span>
-                        </div>
+                      {/* Footer with guest number */}
+                      <div className="flex items-center justify-end pt-1 sm:pt-2 border-t border-[#CDAC77]/30">
                         <div className="flex items-center gap-0.5 sm:gap-1">
-                          <Star className="h-2 w-2 sm:h-3 sm:w-3 text-yellow-400 fill-current" />
+                          <User className="h-2 w-2 sm:h-3 sm:w-3 text-yellow-400 fill-current" />
                           <span className="text-xs text-gray-500 font-lora">Guest #{index + 1}</span>
                         </div>
                       </div>

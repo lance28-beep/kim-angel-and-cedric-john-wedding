@@ -68,7 +68,7 @@ export function Footer() {
     { label: "Events", href: "#events" },
     { label: "Gallery", href: "#gallery" },
     { label: "Snap & Share", href: "#snap-share" },
-    { label: "RSVP", href: "#rsvp" },
+    { label: "RSVP", href: "#guest-list" },
   ] as const
 
   return (
