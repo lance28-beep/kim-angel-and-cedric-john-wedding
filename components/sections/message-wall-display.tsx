@@ -38,18 +38,22 @@ export default function MessageWallDisplay({ messages, loading }: MessageWallDis
     return (
       <div className="space-y-4 sm:space-y-6">
         {[1, 2, 3].map((i) => (
-          <Card key={i} className="border border-[#751A2C]/25 shadow-lg bg-white/90 backdrop-blur-sm">
-            <CardContent className="p-4 sm:p-6">
+          <Card key={i} className="border-2 border-[#AFC8E6]/20 shadow-lg bg-white/95 backdrop-blur-md rounded-2xl">
+            <CardContent className="p-4 sm:p-6 lg:p-8">
               <div className="flex justify-between items-start mb-3 sm:mb-4">
-                <div className="flex items-center space-x-3">
-                  <Skeleton className="w-10 h-10 sm:w-12 sm:h-12 rounded-full" />
+                <div className="flex items-center space-x-3 sm:space-x-4">
+                  <Skeleton className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-[#AFC8E6]/20 to-[#D8B0B0]/20" />
                   <div className="space-y-2">
-                    <Skeleton className="h-4 w-24 sm:w-32" />
-                    <Skeleton className="h-3 w-20 sm:w-24" />
+                    <Skeleton className="h-4 w-24 sm:w-32 bg-[#AFC8E6]/20" />
+                    <Skeleton className="h-3 w-20 sm:w-24 bg-[#D8B0B0]/20" />
                   </div>
                 </div>
+                <div className="flex gap-2">
+                  <Skeleton className="w-4 h-4 rounded bg-[#AFC8E6]/20" />
+                  <Skeleton className="w-3 h-3 rounded bg-[#D8B0B0]/20" />
+                </div>
               </div>
-              <Skeleton className="h-16 sm:h-20 w-full" />
+              <Skeleton className="h-16 sm:h-20 w-full bg-gradient-to-r from-[#AFC8E6]/10 via-[#D8B0B0]/10 to-[#F1EDE2]/10 rounded-lg" />
             </CardContent>
           </Card>
         ))}
@@ -59,24 +63,27 @@ export default function MessageWallDisplay({ messages, loading }: MessageWallDis
 
   if (messages.length === 0) {
     return (
-      <div className="text-center py-12 sm:py-16 px-4">
+      <div className="text-center py-12 sm:py-16 md:py-20 px-4">
         <div className="relative inline-block mb-6 sm:mb-8">
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/20 to-secondary/10 rounded-full blur-xl scale-150 animate-pulse"></div>
-          <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-secondary/20 to-secondary/10 rounded-full flex items-center justify-center mx-auto">
-            <MessageCircle className="h-8 w-8 sm:h-10 sm:w-10 text-secondary" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#AFC8E6]/30 to-[#D8B0B0]/20 rounded-full blur-xl scale-150 animate-pulse"></div>
+          <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#AFC8E6] via-[#D8B0B0] to-[#F1EDE2] rounded-full flex items-center justify-center mx-auto shadow-lg">
+            <MessageCircle className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
           </div>
+          {/* Outer decorative rings */}
+          <div className="absolute -inset-3 rounded-full border-2 border-[#AFC8E6]/20 animate-ping"></div>
+          <div className="absolute -inset-2 rounded-full border border-[#D8B0B0]/30"></div>
         </div>
-        <h3 className="text-xl sm:text-2xl lg:text-3xl font-playfair font-bold text-[#FFFFFF] mb-3 sm:mb-4">
+        <h3 className="text-xl sm:text-2xl lg:text-3xl font-playfair font-bold text-white mb-3 sm:mb-4 drop-shadow-lg">
           No Messages Yet
         </h3>
-        <p className="text-sm sm:text-base lg:text-lg text-[#FFFFFF]/90 font-lora max-w-md mx-auto leading-relaxed">
+        <p className="text-sm sm:text-base lg:text-lg text-white/90 font-lora max-w-md mx-auto leading-relaxed mb-6">
           Be the first to share your heartfelt wishes for the happy couple!
         </p>
         <div className="mt-6 sm:mt-8 flex justify-center">
-          <div className="flex items-center gap-2 text-[#C3A161]/70">
-            <Sparkles className="h-4 w-4 animate-pulse" />
-            <span className="text-xs sm:text-sm font-lora text-[#FFFFFF]/85">Your message will appear here</span>
-            <Sparkles className="h-4 w-4 animate-pulse" />
+          <div className="flex items-center gap-3 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
+            <Sparkles className="h-4 w-4 text-[#AFC8E6] animate-pulse" />
+            <span className="text-xs sm:text-sm font-lora text-white/90">Your message will appear here</span>
+            <Sparkles className="h-4 w-4 text-[#D8B0B0] animate-pulse" style={{ animationDelay: '0.5s' }} />
           </div>
         </div>
       </div>
@@ -88,25 +95,56 @@ export default function MessageWallDisplay({ messages, loading }: MessageWallDis
       {visibleMessages.map((msg, index) => (
         <Card
           key={index}
-          className={`relative border-2 border-[#751A2C]/35 shadow-[0_8px_32px_rgba(102,105,86,0.16)] bg-white/90 backdrop-blur-sm hover:shadow-[0_12px_40px_rgba(102,105,86,0.24)] transition-all duration-500 group overflow-hidden transform rounded-2xl ${
+          className={`relative border-2 border-[#AFC8E6]/30 shadow-lg bg-white/95 backdrop-blur-md hover:shadow-2xl hover:border-[#AFC8E6]/50 transition-all duration-500 group overflow-hidden transform rounded-2xl hover:scale-[1.02] ${
             isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
           }`}
           style={{
             transitionDelay: `${index * 100}ms`,
-            animation: isAnimating ? 'none' : 'fadeInUp 0.6s ease-out forwards'
+            animation: isAnimating ? 'none' : 'fadeInUp 0.6s ease-out forwards',
+            boxShadow: '0 4px 20px rgba(175, 200, 230, 0.15), 0 2px 8px rgba(216, 176, 176, 0.1)'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.boxShadow = '0 8px 30px rgba(175, 200, 230, 0.25), 0 4px 12px rgba(216, 176, 176, 0.15)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.boxShadow = '0 4px 20px rgba(175, 200, 230, 0.15), 0 2px 8px rgba(216, 176, 176, 0.1)';
           }}
         >
-          {/* Card background effects in gold palette */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#751A2C]/6 via-transparent to-[#C3A161]/12 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#751A2C]/35 via-[#C3A161] to-[#751A2C]/35 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-          <div className="absolute -inset-[1px] rounded-2xl pointer-events-none" style={{ boxShadow: 'inset 0 0 0 1px rgba(176,137,129,0.18)' }} />
+          {/* Enhanced card background effects */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#AFC8E6]/8 via-transparent to-[#F1EDE2]/10 opacity-60 group-hover:opacity-90 transition-opacity duration-300"></div>
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#AFC8E6]/40 via-[#D8B0B0]/50 to-[#F1EDE2]/40 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+          <div className="absolute -inset-[1px] rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ boxShadow: 'inset 0 0 0 1px rgba(175, 200, 230, 0.2)' }} />
+          
+          {/* Subtle shimmer effect on hover */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+          
+          {/* Decorative inner border */}
+          <div className="absolute inset-2 sm:inset-3 md:inset-4 rounded-xl pointer-events-none">
+            {/* Main decorative border */}
+            <div className="absolute inset-0 rounded-xl border border-[#AFC8E6]/20 group-hover:border-[#AFC8E6]/40 transition-colors duration-300"></div>
+            
+            {/* Corner decorations */}
+            <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#AFC8E6]/30 rounded-tl-xl group-hover:border-[#AFC8E6]/50 transition-colors duration-300"></div>
+            <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#D8B0B0]/30 rounded-tr-xl group-hover:border-[#D8B0B0]/50 transition-colors duration-300"></div>
+            <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#D8B0B0]/30 rounded-bl-xl group-hover:border-[#D8B0B0]/50 transition-colors duration-300"></div>
+            <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#F1EDE2]/30 rounded-br-xl group-hover:border-[#F1EDE2]/50 transition-colors duration-300"></div>
+            
+            {/* Gradient overlay on border */}
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-[#AFC8E6]/5 via-transparent to-[#F1EDE2]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            {/* Decorative dots at corners */}
+            <div className="absolute -top-1 -left-1 w-2 h-2 bg-[#AFC8E6]/40 rounded-full group-hover:bg-[#AFC8E6]/60 transition-colors duration-300"></div>
+            <div className="absolute -top-1 -right-1 w-2 h-2 bg-[#D8B0B0]/40 rounded-full group-hover:bg-[#D8B0B0]/60 transition-colors duration-300"></div>
+            <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-[#D8B0B0]/40 rounded-full group-hover:bg-[#D8B0B0]/60 transition-colors duration-300"></div>
+            <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-[#F1EDE2]/40 rounded-full group-hover:bg-[#F1EDE2]/60 transition-colors duration-300"></div>
+          </div>
           
           <CardContent className="relative p-4 sm:p-6 lg:p-8">
             <div className="flex justify-between items-start mb-3 sm:mb-4">
               <div className="flex items-center space-x-3 sm:space-x-4">
                 <div className="relative">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#751A2C] to-[#C3A161] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <span className="text-white font-lora text-sm sm:text-base font-semibold">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#AFC8E6] via-[#D8B0B0] to-[#F1EDE2] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg ring-2 ring-white/50">
+                    <span className="text-white font-lora text-sm sm:text-base font-semibold drop-shadow-sm">
                       {msg.name
                         .split(" ")
                         .map((n) => n[0])
@@ -114,12 +152,13 @@ export default function MessageWallDisplay({ messages, loading }: MessageWallDis
                         .toUpperCase()}
                     </span>
                   </div>
-                  {/* Avatar glow effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#751A2C]/30 to-[#C3A161]/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                  {/* Enhanced avatar glow effect */}
+                  <div className="absolute -inset-1 bg-gradient-to-br from-[#AFC8E6]/40 via-[#D8B0B0]/30 to-[#F1EDE2]/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                  <div className="absolute -inset-2 bg-gradient-to-br from-[#AFC8E6]/20 to-[#D8B0B0]/15 rounded-full blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-300 -z-20 animate-pulse"></div>
                 </div>
                 <div className="min-w-0 flex-1">
-                  <h4 className="font-lora text-foreground text-base sm:text-lg font-semibold truncate">{msg.name}</h4>
-                  <span className="text-xs sm:text-sm text-foreground/60 font-lora">
+                  <h4 className="font-lora text-foreground text-base sm:text-lg font-semibold truncate group-hover:text-[#AFC8E6] transition-colors duration-300">{msg.name}</h4>
+                  <span className="text-xs sm:text-sm text-foreground/60 font-lora group-hover:text-foreground/70 transition-colors duration-300">
                     {new Date(msg.timestamp).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
@@ -131,20 +170,25 @@ export default function MessageWallDisplay({ messages, loading }: MessageWallDis
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <Heart className="h-4 w-4 sm:h-5 sm:w-5 text-[#751A2C]/70 fill-[#751A2C]/20 group-hover:fill-[#751A2C]/40 group-hover:text-[#751A2C] transition-all duration-300" />
-                <Sparkles className="h-3 w-3 sm:h-4 sm:w-4 text-[#C3A161]/70 group-hover:text-[#C3A161] transition-colors duration-300" />
+                <Heart className="h-4 w-4 sm:h-5 sm:w-5 text-[#AFC8E6]/70 fill-[#AFC8E6]/20 group-hover:fill-[#AFC8E6]/50 group-hover:text-[#AFC8E6] transition-all duration-300 group-hover:scale-110" />
+                <Sparkles className="h-3 w-3 sm:h-4 sm:w-4 text-[#D8B0B0]/70 group-hover:text-[#D8B0B0] transition-all duration-300 group-hover:scale-110 group-hover:rotate-12" />
               </div>
             </div>
             
             <div className="relative">
-              <span className="absolute -left-1 -top-1 sm:-left-2 sm:-top-2 text-2xl sm:text-4xl text-[#751A2C]/30 font-playfair group-hover:text-[#751A2C]/50 transition-colors duration-300">"</span>
-              <p className="text-foreground/80 text-sm sm:text-base leading-relaxed pl-4 sm:pl-6 font-lora group-hover:text-foreground/90 transition-colors duration-300">{msg.message}</p>
-              <span className="absolute -right-1 -bottom-1 sm:-right-2 sm:-bottom-2 text-2xl sm:text-4xl text-[#751A2C]/30 font-playfair group-hover:text-[#751A2C]/50 transition-colors duration-300">"</span>
+              <span className="absolute -left-1 -top-1 sm:-left-2 sm:-top-2 text-2xl sm:text-4xl text-[#AFC8E6]/40 font-playfair group-hover:text-[#AFC8E6]/60 transition-all duration-300 group-hover:scale-110">"</span>
+              <p className="text-foreground/85 text-sm sm:text-base leading-relaxed pl-4 sm:pl-6 font-lora group-hover:text-foreground/95 transition-colors duration-300">{msg.message}</p>
+              <span className="absolute -right-1 -bottom-1 sm:-right-2 sm:-bottom-2 text-2xl sm:text-4xl text-[#D8B0B0]/40 font-playfair group-hover:text-[#D8B0B0]/60 transition-all duration-300 group-hover:scale-110">"</span>
             </div>
             
-            {/* Message bottom accent */}
-            <div className="mt-3 sm:mt-4 flex justify-end">
-              <div className="w-12 h-0.5 bg-gradient-to-r from-transparent via-[#751A2C]/40 to-transparent group-hover:via-[#751A2C]/60 transition-colors duration-300"></div>
+            {/* Enhanced message bottom accent */}
+            <div className="mt-4 sm:mt-5 flex items-center justify-between">
+              <div className="flex items-center gap-1 text-xs text-foreground/50">
+                <div className="w-1 h-1 rounded-full bg-[#AFC8E6]/50"></div>
+                <div className="w-1 h-1 rounded-full bg-[#D8B0B0]/50"></div>
+                <div className="w-1 h-1 rounded-full bg-[#F1EDE2]/50"></div>
+              </div>
+              <div className="w-16 sm:w-20 h-0.5 bg-gradient-to-r from-transparent via-[#AFC8E6]/50 via-[#D8B0B0]/60 to-transparent group-hover:via-[#AFC8E6]/70 group-hover:via-[#D8B0B0]/80 transition-all duration-300"></div>
             </div>
           </CardContent>
         </Card>

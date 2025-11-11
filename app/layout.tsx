@@ -9,25 +9,25 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const greatVibes = Great_Vibes({ subsets: ["latin"], weight: "400", variable: "--font-serif" })
 
 export const metadata: Metadata = {
-  title: "Airez & Brendan - Wedding Invitation",
+  title: "Nikki & Geofrey - Wedding Invitation",
   description:
-    "You're invited to the wedding of Airez & Brendan! Join us on December 28, 2025 in Alta Guia, Taguig, Metro Manila. RSVP, read our love story, view our gallery, and leave a message for the couple.",
+    "You're invited to the wedding of Nikki & Geofrey! Join us on December 23, 2025 at St. Rose of Lima Parish, Bacacay, Albay. RSVP, read our love story, view our gallery, and leave a message for the couple.",
   keywords:
-    "Airez Brendan wedding, Filipino wedding, RSVP, wedding gallery, wedding message wall, wedding invitation, 2025 weddings, love story, guestbook, wedding registry, wedding details, wedding venues Alta Guia, Taguig, Metro Manila, #AirezAndBrendanWedding",
+    "Nikki Geofrey wedding, Filipino wedding, RSVP, wedding gallery, wedding message wall, wedding invitation, 2025 weddings, love story, guestbook, wedding registry, wedding details, wedding venues St. Rose of Lima Parish, Bacacay, Albay, #NikkiAndGeofreyWedding",
   authors: [
-    { name: "Airez" },
-    { name: "Brendan" },
+    { name: "Nikki" },
+    { name: "Geofrey" },
   ],
-  creator: "Airez & Brendan",
-  publisher: "Airez & Brendan",
+  creator: "Nikki & Geofrey",
+  publisher: "Nikki & Geofrey",
   formatDetection: {
     email: false,
     address: false,
     telephone: true,
   },
-  metadataBase: new URL("https://Airez-and-Brendan-invitation.vercel.app/"),
+  metadataBase: new URL("https://Nikki-and-Geofrey-invitation.vercel.app/"),
   alternates: {
-    canonical: "https://Airez-and-Brendan-invitation.vercel.app/",
+    canonical: "https://Nikki-and-Geofrey-invitation.vercel.app/",
   },
   icons: {
     icon: [
@@ -49,29 +49,29 @@ export const metadata: Metadata = {
   },
   manifest: "/favicon_io/site.webmanifest",
   openGraph: {
-    title: "Airez & Brendan Wedding | December 28, 2025",
+    title: "Nikki & Geofrey Wedding | December 23, 2025",
     description:
-      "Celebrate the union of Airez & Brendan on December 28, 2025 in Alta Guia, Taguig, Metro Manila. Discover our love story, RSVP, view the gallery, and leave your wishes!",
-    url: "https://Airez-and-Brendan-invitation.vercel.app/",
-    siteName: "Airez and Brendan Wedding ",
+      "Celebrate the union of Nikki & Geofrey on December 23, 2025 at St. Rose of Lima Parish, Bacacay, Albay. Discover our love story, RSVP, view the gallery, and leave your wishes!",
+    url: "https://Nikki-and-Geofrey-invitation.vercel.app/",
+    siteName: "Nikki and Geofrey Wedding ",
     locale: "en_PH",
     type: "website",
     images: [
       {
-        url: "https://Airez-and-Brendan-invitation.vercel.app/desktop-background/couple (1).jpg",
+        url: "https://Nikki-and-Geofrey-invitation.vercel.app/desktop-background/couple (41).jpg",
         width: 1200,
         height: 630,
-        alt: "Airez & Brendan Wedding Invitation - December 28, 2025",
+        alt: "Nikki & Geofrey Wedding Invitation - December 23, 2025",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Airez & Brendan Wedding Invitation",
+    title: "Nikki & Geofrey Wedding Invitation",
     description:
-      "You're invited to the wedding of Airez & Brendan! December 28, 2025. RSVP, view our gallery, and leave a message! #AirezAndBrendanWedding",
-    images: ["https://Airez-and-Brendan-invitation.vercel.app/desktop-background/couple (1).jpg"],
-    creator: "@airezandbrendan",
+      "You're invited to the wedding of Nikki & Geofrey! December 23, 2025. RSVP, view our gallery, and leave a message! #NikkiAndGeofreyWedding",
+    images: ["https://Nikki-and-Geofrey-invitation.vercel.app/desktop-background/couple (41).jpg"],
+    creator: "@nikkibalane",
   },
   robots: {
     index: true,
@@ -91,37 +91,37 @@ export const metadata: Metadata = {
     "application/ld+json": JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Event",
-      name: "Talitha & Karol Wedding",
-      startDate: "2026-02-14T14:00:00+08:00",
-      endDate: "2026-02-14T22:00:00+08:00",
+      name: "Nikki & Geofrey Wedding",
+      startDate: "2025-12-23T13:30:00+08:00",
+      endDate: "2025-12-23T22:00:00+08:00",
       eventStatus: "https://schema.org/EventScheduled",
       eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
       location: [
         {
           "@type": "Place",
-          name: "Alta Guia, Taguig, Metro Manila",
+          name: "St. Rose of Lima Parish, Bacacay, Albay",
           address: {
             "@type": "PostalAddress",
-            addressLocality: "Taguig, Metro Manila",
+            addressLocality: "Bacacay, Albay",
             addressCountry: "PH",
           },
         },
       ],
-      image: ["https://Airez-and-Brendan-invitation.vercel.app/desktop-background/couple (1).jpg"],
+      image: ["https://Nikki-and-Geofrey-invitation.vercel.app/desktop-background/couple (41).jpg"],
       description:
-        "You're invited to the wedding of Airez & Brendan! Join us on December 28, 2025 in Alta Guia, Taguig, Metro Manila. RSVP, read our love story, view our gallery, and leave a message for the couple.",
+        "You're invited to the wedding of Nikki & Geofrey! Join us on December 23, 2025 at St. Rose of Lima Parish, Bacacay, Albay. RSVP, read our love story, view our gallery, and leave a message for the couple.",
       organizer: {
         "@type": "Person",
-        name: "Airez & Brendan",
+        name: "Nikki & Geofrey",
       },
       offers: {
         "@type": "Offer",
-        url: "https://Airez-and-Brendan-invitation.vercel.app/",
+        url: "https://Nikki-and-Geofrey-invitation.vercel.app/",
         availability: "https://schema.org/InStock",
         price: "0",
         priceCurrency: "PHP",
       },
-      eventHashtag: "#AirezAndBrendanWedding",
+      eventHashtag: "#NikkiAndGeofreyWedding",
     }),
   },
 }
@@ -134,7 +134,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <meta name="theme-color" content="#0A3428" />
+        <meta name="theme-color" content="#AFC8E6" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preload" as="image" href="/mobile-background/DSCF2614-min.jpg" media="(max-width: 767px)" />

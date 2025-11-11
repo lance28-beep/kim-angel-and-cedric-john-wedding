@@ -1,17 +1,17 @@
 export const siteConfig = {
   couple: {
-    bride: "Airez Joy Caspillo Anggalan",
-    brideNickname: "Airez",
-    groom: "Brendan Joe Grima",
-    groomNickname: "Brendan",
+    bride: "Ma. Nikki Pauline Q. Balane",
+    brideNickname: "Nikki",
+    groom: "Geofrey B. Ascutia",
+    groomNickname: "Geofrey",
   },
   wedding: {
-    date: "December 28, 2025",
-    time: "11:00 AM",
-    venue: "Alta Guia, Taguig, Metro Manila",
+    date: "December 23, 2025",
+    time: "1:30 PM",
+    venue: "St. Rose of Lima Parish, Bacacay, Albay",
     tagline: "are getting married!",
-    theme: "Christmas Wedding 🎄",
-    motif: "Burgundy Red & Emerald Green",
+    theme: "Dusty Pink and Baby Blue",
+    motif: "Dusty Pink and Baby Blue (floral pastel colors)",
   },
   details: {
     rsvp: {
@@ -19,23 +19,23 @@ export const siteConfig = {
     },
   },
   ceremony: {
-    location: "Alta Guia, Taguig, Metro Manila",
-    venue: "Alta Guia",
-    date: "December 28, 2025",
-    day: "Sunday",
-    time: "11:00 AM",
-    entourageTime: "10:00 AM",
-    guestsTime: "10:30 AM",
+    location: "St. Rose of Lima Parish, Bacacay, Albay",
+    venue: "St. Rose of Lima Parish",
+    date: "December 23, 2025",
+    day: "Tuesday",
+    time: "1:30 PM",
+    entourageTime: "12:30 PM",
+    guestsTime: "1:00 PM",
   },
   reception: {
-    location: "Alta Guia, Taguig, Metro Manila",
-    venue: "Alta Guia",
-    date: "December 28, 2025",
-    time: "12:00 NN",
+    location: "Tres Hijos Hotel and Resort, Sto. Domingo, Albay",
+    venue: "Tres Hijos Hotel and Resort",
+    date: "December 23, 2025",
+    time: "4:30 PM",
   },
   dressCode: {
-    theme: "Christmas Wedding 🎄",
-    colors: ["#0A3428", "#106552", "#751A2C", "#C3A161"],
+    theme: "Dusty Pink and Baby Blue",
+    colors: ["#AFC8E6", "#D8B0B0", "#F1EDE2"],
     sponsors: {
       ladies: "White gown / long dress ",
       gentlemen: "Black suit and tie"
@@ -46,14 +46,10 @@ export const siteConfig = {
     },
     note: "Please avoid jeans and casual attire."
   },
-  narrative: `It's amazing how a simple online game could change everything.
-
-We're Airez and Brendan, and Codenames was where our story began. What started as playful banter soon blossomed into something real — a connection we couldn't ignore. Despite the distance and different time zones, we found strength in each other. Every message, every call, every small act of love became proof of what we were building together.
-
-Now, we're ready to take the next step — hand in hand, heart to heart. A lifetime of love, a partnership built on trust, and a future we're both so excited to create. ❤️`,
+  narrative: `We're two architects who met in Manila—both chasing dreams far from home. What began as a search for a great career led us to something even greater: finding each other. In this city of concrete and lights, we built the most beautiful design of all—our love.`,
   colors: {
-    primary: "#0A3428",
-    secondary: "#106552",
+    primary: "#AFC8E6",
+    secondary: "#D8B0B0",
   },
 }
 

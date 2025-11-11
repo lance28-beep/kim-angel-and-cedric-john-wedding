@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { Section } from "@/components/section"
 import Counter from "@/components/counter"
+import { Heart, Sparkles } from "lucide-react"
 
 interface TimeLeft {
   days: number
@@ -19,12 +20,18 @@ export function Countdown() {
     seconds: 0,
   })
 
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    setIsVisible(true)
+  }, [])
+
   useEffect(() => {
     const calculateTimeLeft = () => {
-      // Target: December 28, 2025 at 11:00 AM GMT+8
+      // Target: December 23, 2025 at 1:30 PM GMT+8
       // Compute using UTC to avoid timezone parsing inconsistencies across browsers
-      // 11:00 AM GMT+8 == 03:00 AM UTC
-      const targetDate = Date.UTC(2025, 11, 28, 3, 0, 0) // December is month 11 (0-indexed)
+      // 1:30 PM GMT+8 == 05:30 AM UTC
+      const targetDate = Date.UTC(2025, 11, 23, 5, 30, 0) // December is month 11 (0-indexed)
       const now = new Date().getTime()
       const difference = targetDate - now
 
@@ -52,36 +59,44 @@ export function Countdown() {
   }, [])
 
   const CountdownUnit = ({ value, label }: { value: number; label: string }) => (
-    <div className="flex flex-col items-center gap-3 sm:gap-4">
-      {/* Simple, elegant card */}
+    <div className="flex flex-col items-center gap-4 sm:gap-5">
+      {/* Enhanced elegant card with better depth */}
       <div className="relative group">
-        {/* Subtle glow on hover */}
-        <div className="absolute -inset-1 bg-gradient-to-br from-[#C3A161]/20 to-[#751A2C]/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg" />
+        {/* Animated glow effect */}
+        <div className="absolute -inset-2 bg-gradient-to-br from-[#FFFFFF]/30 via-[#D8B0B0]/20 to-[#F1EDE2]/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-700 blur-xl animate-pulse" />
         
-        {/* Main card */}
-        <div className="relative bg-white/95 backdrop-blur-sm rounded-xl sm:rounded-2xl px-3 py-4 sm:px-5 sm:py-5 md:px-6 md:py-6 lg:px-8 lg:py-7 border border-[#C3A161]/30 shadow-lg hover:shadow-xl transition-all duration-300 hover:border-[#C3A161]/50 min-w-[65px] sm:min-w-[75px] md:min-w-[90px] lg:min-w-[100px]">
+        {/* Outer glow ring */}
+        <div className="absolute -inset-1 bg-gradient-to-br from-[#D8B0B0]/40 to-[#F1EDE2]/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        
+        {/* Main card with enhanced styling */}
+        <div className="relative bg-gradient-to-br from-white/98 via-white/95 to-white/98 backdrop-blur-md rounded-2xl sm:rounded-3xl px-4 py-5 sm:px-6 sm:py-6 md:px-8 md:py-7 lg:px-10 lg:py-8 border-2 border-white/50 shadow-2xl hover:shadow-[0_20px_60px_rgba(216,176,176,0.4)] transition-all duration-500 hover:scale-105 hover:border-[#D8B0B0]/60 min-w-[70px] sm:min-w-[85px] md:min-w-[100px] lg:min-w-[120px] transform hover:-translate-y-2">
+          {/* Shine effect overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/20 to-transparent rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          
           {/* Counter */}
           <div className="relative z-10 flex items-center justify-center">
             <Counter
               value={value}
               places={value >= 100 ? [100, 10, 1] : [10, 1]}
-              fontSize={36}
-              padding={6}
-              gap={3}
-              textColor="#0A3428"
-              fontWeight={600}
-              borderRadius={8}
-              horizontalPadding={4}
-              gradientHeight={10}
-              gradientFrom="rgba(10,52,40,0.08)"
+              fontSize={42}
+              padding={8}
+              gap={4}
+              textColor="#AFC8E6"
+              fontWeight={700}
+              borderRadius={12}
+              horizontalPadding={6}
+              gradientHeight={12}
+              gradientFrom="rgba(175,200,230,0.1)"
               gradientTo="transparent"
             />
           </div>
         </div>
       </div>
 
-      {/* Simple label */}
-      <span className="text-xs sm:text-sm font-medium text-[#FFFFFF]/90 uppercase tracking-wider">
+      {/* Enhanced label with better typography */}
+      <span className="text-sm sm:text-base font-semibold text-[#FFFFFF] uppercase tracking-[0.15em] drop-shadow-lg" style={{
+        textShadow: "0 2px 8px rgba(0,0,0,0.2), 0 1px 3px rgba(175,200,230,0.3)"
+      }}>
         {label}
       </span>
     </div>
@@ -90,20 +105,25 @@ export function Countdown() {
   return (
     <Section
       id="countdown"
-      className="relative bg-gradient-to-b from-[#0A3428] via-[#106552]/90 to-[#0A3428] py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden"
+      className="relative bg-[#AFC8E6] py-16 sm:py-20 md:py-24 lg:py-32 overflow-hidden"
     >
-      {/* Subtle background elements */}
+      {/* Enhanced background elements with subtle patterns */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Soft gradient overlays */}
-        <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-[#C3A161]/5 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#C3A161]/5 to-transparent" />
+        {/* Soft gradient overlays for depth */}
+        <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/10 via-white/5 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-white/10 via-white/5 to-transparent" />
         
-        {/* Bottom-left flower decoration */}
+        {/* Subtle animated circles for visual interest */}
+        <div className="absolute top-20 left-10 w-32 h-32 bg-white/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
+        <div className="absolute bottom-20 right-10 w-40 h-40 bg-[#D8B0B0]/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-white/5 rounded-full blur-2xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }} />
+        
+        {/* Bottom-left flower decoration with enhanced styling */}
         <img
           src="/decoration/rigth-bottom-corner-flower.png"
           alt=""
           aria-hidden="true"
-          className="absolute bottom-0 left-0 z-10 w-64 sm:w-80 md:w-96 lg:w-[28rem] xl:w-[32rem] opacity-90 select-none pointer-events-none scale-x-[-1]"
+          className="absolute bottom-0 left-0 z-10 w-64 sm:w-80 md:w-96 lg:w-[28rem] xl:w-[32rem] opacity-80 select-none pointer-events-none scale-x-[-1] transition-opacity duration-1000"
         />
         
         {/* Bottom-right flower decoration */}
@@ -111,106 +131,130 @@ export function Countdown() {
           src="/decoration/rigth-bottom-corner-flower.png"
           alt=""
           aria-hidden="true"
-          className="absolute bottom-0 right-0 z-10 w-64 sm:w-80 md:w-96 lg:w-[28rem] xl:w-[32rem] opacity-90 select-none pointer-events-none"
+          className="absolute bottom-0 right-0 z-10 w-64 sm:w-80 md:w-96 lg:w-[28rem] xl:w-[32rem] opacity-80 select-none pointer-events-none transition-opacity duration-1000"
         />
       </div>
 
-      {/* Header */}
-      <div className="relative z-10 text-center mb-10 sm:mb-12 md:mb-16 px-4">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-[#FFFFFF] mb-4 sm:mb-6 drop-shadow-md">
+      {/* Enhanced Header with decorative elements */}
+      <div className={`relative z-10 text-center mb-12 sm:mb-16 md:mb-20 px-4 transition-all duration-1000 ease-out ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}>
+        {/* Decorative divider above title */}
+        <div className="flex items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+          <div className="h-px w-12 sm:w-16 md:w-20 bg-gradient-to-r from-transparent via-white/60 to-white" />
+          <Heart size={16} className="sm:w-5 sm:h-5 md:w-6 md:h-6 text-white fill-white/40 drop-shadow-md animate-pulse" />
+          <Sparkles size={14} className="sm:w-4 sm:h-4 md:w-5 md:h-5 text-white/80 drop-shadow-md" />
+          <Heart size={16} className="sm:w-5 sm:h-5 md:w-6 md:h-6 text-white fill-white/40 drop-shadow-md animate-pulse" />
+          <div className="h-px w-12 sm:w-16 md:w-20 bg-gradient-to-l from-transparent via-white/60 to-white" />
+        </div>
+
+        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-[#FFFFFF] mb-5 sm:mb-6 md:mb-8 drop-shadow-2xl" style={{
+          textShadow: "0 4px 20px rgba(0,0,0,0.2), 0 2px 10px rgba(216,176,176,0.3), 0 8px 30px rgba(175,200,230,0.4)"
+        }}>
           Countdown to Our Special Day
         </h2>
         
-        <p className="text-sm sm:text-base md:text-lg text-[#FFFFFF]/90 font-light max-w-xl mx-auto leading-relaxed">
+        <p className="text-base sm:text-lg md:text-xl text-[#FFFFFF]/95 font-light max-w-2xl mx-auto leading-relaxed drop-shadow-lg" style={{
+          textShadow: "0 2px 8px rgba(0,0,0,0.15)"
+        }}>
           Every moment brings us closer to forever
         </p>
       </div>
 
-      {/* Main countdown container */}
-      <div className="relative z-10">
-        <div className="flex justify-center items-center gap-2 sm:gap-3 md:gap-4 lg:gap-6 mb-8 sm:mb-10 md:mb-12 flex-wrap px-4">
+      {/* Main countdown container with enhanced layout */}
+      <div className={`relative z-10 transition-all duration-1000 ease-out delay-300 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}>
+        <div className="flex justify-center items-center gap-4 sm:gap-5 md:gap-6 lg:gap-8 mb-12 sm:mb-16 md:mb-20 flex-wrap px-4">
           <CountdownUnit value={timeLeft.days} label="Days" />
           <CountdownUnit value={timeLeft.hours} label="Hours" />
           <CountdownUnit value={timeLeft.minutes} label="Minutes" />
           <CountdownUnit value={timeLeft.seconds} label="Seconds" />
         </div>
 
-        {/* Wedding date presentation - Save The Date Card Style */}
+        {/* Enhanced Wedding date presentation */}
         <div className="flex justify-center px-4">
-          <div className="max-w-2xl w-full">
-            {/* Save The Date Header */}
-            <div className="text-center mb-8 sm:mb-10 md:mb-12">
-              {/* Top decorative dots */}
-              <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
-                <div className="w-1 h-1 bg-[#C3A161]/60 rounded-full" />
-                <div className="w-1 h-1 bg-[#C3A161]/40 rounded-full" />
-                <div className="w-1 h-1 bg-[#C3A161]/60 rounded-full" />
+          <div className="max-w-3xl w-full">
+            {/* Save The Date Header with enhanced styling */}
+            <div className="text-center mb-10 sm:mb-12 md:mb-16">
+              {/* Top decorative elements */}
+              <div className="flex items-center justify-center gap-3 mb-4 sm:mb-5">
+                <div className="w-1.5 h-1.5 bg-[#D8B0B0]/70 rounded-full shadow-lg" />
+                <div className="w-1 h-1 bg-[#D8B0B0]/50 rounded-full" />
+                <div className="w-1.5 h-1.5 bg-[#D8B0B0]/70 rounded-full shadow-lg" />
               </div>
               
-              {/* Save The Date text */}
-              <p className="text-xs sm:text-sm md:text-base font-sans font-medium text-[#C3A161] uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-3 sm:mb-4">
+              {/* Save The Date text with enhanced styling */}
+              <p className="text-sm sm:text-base md:text-lg font-sans font-semibold text-[#FFFFFF] uppercase tracking-[0.25em] sm:tracking-[0.3em] mb-4 sm:mb-5 drop-shadow-md" style={{
+                textShadow: "0 2px 8px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.2)"
+              }}>
                 Save The Date
               </p>
               
-              {/* Bottom decorative dots */}
-              <div className="flex items-center justify-center gap-2">
-                <div className="w-1 h-1 bg-[#C3A161]/60 rounded-full" />
-                <div className="w-1 h-1 bg-[#C3A161]/40 rounded-full" />
-                <div className="w-1 h-1 bg-[#C3A161]/60 rounded-full" />
+              {/* Bottom decorative elements */}
+              <div className="flex items-center justify-center gap-3">
+                <div className="w-1.5 h-1.5 bg-[#D8B0B0]/70 rounded-full shadow-lg" />
+                <div className="w-1 h-1 bg-[#D8B0B0]/50 rounded-full" />
+                <div className="w-1.5 h-1.5 bg-[#D8B0B0]/70 rounded-full shadow-lg" />
               </div>
             </div>
 
-            {/* Date Section - Elegant Layout */}
-            <div className="text-center mb-8 sm:mb-10 md:mb-12">
-              {/* Month - Elegant script style */}
-              <div className="mb-4 sm:mb-5 md:mb-6">
-                <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif italic text-[#FFFFFF] leading-none" style={{
+            {/* Enhanced Date Section */}
+            <div className="text-center mb-10 sm:mb-12 md:mb-16">
+              {/* Month with enhanced styling */}
+              <div className="mb-5 sm:mb-6 md:mb-8">
+                <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif italic text-[#FFFFFF] leading-none drop-shadow-2xl" style={{
                   fontFamily: "var(--font-serif)",
                   fontStyle: "italic",
-                  fontWeight: 300
+                  fontWeight: 300,
+                  textShadow: "0 4px 20px rgba(0,0,0,0.3), 0 2px 10px rgba(0,0,0,0.2)"
                 }}>
                   December
                 </p>
               </div>
               
-              {/* Day and Year - Horizontal layout with divider */}
-              <div className="flex items-center justify-center gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8">
-                {/* Day - Large and bold focal point */}
-                <p className="text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] font-serif font-bold text-[#C3A161] leading-none drop-shadow-lg" style={{
-                  textShadow: "0 4px 20px rgba(195, 161, 97, 0.3)"
+              {/* Day and Year with enhanced layout */}
+              <div className="flex items-center justify-center gap-4 sm:gap-5 md:gap-6 lg:gap-8 mb-8 sm:mb-10">
+                {/* Day - Enhanced focal point */}
+                <p className="text-8xl sm:text-9xl md:text-[10rem] lg:text-[12rem] xl:text-[14rem] font-serif font-bold text-[#FFFFFF] leading-none drop-shadow-2xl transition-transform duration-500 hover:scale-105" style={{
+                  textShadow: "0 6px 30px rgba(0,0,0,0.4), 0 3px 15px rgba(0,0,0,0.3), 0 10px 40px rgba(0,0,0,0.2)"
                 }}>
-                  28
+                  23
                 </p>
                 
-                {/* Vertical divider */}
-                <div className="h-16 sm:h-20 md:h-24 lg:h-28 w-px bg-[#C3A161]/50" />
+                {/* Enhanced vertical divider */}
+                <div className="h-20 sm:h-24 md:h-28 lg:h-32 w-0.5 bg-gradient-to-b from-transparent via-[#D8B0B0]/60 to-transparent shadow-lg" />
                 
-                {/* Year - Elegant and refined */}
-                <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-light text-[#FFFFFF] leading-none">
+                {/* Year with enhanced styling */}
+                <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-light text-[#FFFFFF] leading-none drop-shadow-xl" style={{
+                  textShadow: "0 4px 20px rgba(0,0,0,0.3), 0 2px 10px rgba(0,0,0,0.2)"
+                }}>
                   2025
                 </p>
               </div>
             </div>
 
-            {/* Time Section */}
+            {/* Enhanced Time Section */}
             <div className="text-center">
-              {/* Top decorative dots */}
-              <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
-                <div className="w-1 h-1 bg-[#C3A161]/60 rounded-full" />
-                <div className="w-1 h-1 bg-[#C3A161]/40 rounded-full" />
-                <div className="w-1 h-1 bg-[#C3A161]/60 rounded-full" />
+              {/* Top decorative elements */}
+              <div className="flex items-center justify-center gap-3 mb-4 sm:mb-5">
+                <div className="w-1.5 h-1.5 bg-[#D8B0B0]/70 rounded-full shadow-lg" />
+                <div className="w-1 h-1 bg-[#D8B0B0]/50 rounded-full" />
+                <div className="w-1.5 h-1.5 bg-[#D8B0B0]/70 rounded-full shadow-lg" />
               </div>
               
-              {/* Time */}
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-sans font-medium text-[#C3A161] tracking-wide mb-3 sm:mb-4">
-                11:00 AM
+              {/* Time with enhanced styling */}
+              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-sans font-semibold text-[#FFFFFF] tracking-wide mb-4 sm:mb-5 drop-shadow-lg" style={{
+                textShadow: "0 3px 15px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3)"
+              }}>
+                1:30 PM
               </p>
               
-              {/* Bottom decorative dots */}
-              <div className="flex items-center justify-center gap-2">
-                <div className="w-1 h-1 bg-[#C3A161]/60 rounded-full" />
-                <div className="w-1 h-1 bg-[#C3A161]/40 rounded-full" />
-                <div className="w-1 h-1 bg-[#C3A161]/60 rounded-full" />
+              {/* Bottom decorative elements */}
+              <div className="flex items-center justify-center gap-3">
+                <div className="w-1.5 h-1.5 bg-[#D8B0B0]/70 rounded-full shadow-lg" />
+                <div className="w-1 h-1 bg-[#D8B0B0]/50 rounded-full" />
+                <div className="w-1.5 h-1.5 bg-[#D8B0B0]/70 rounded-full shadow-lg" />
               </div>
             </div>
           </div>
