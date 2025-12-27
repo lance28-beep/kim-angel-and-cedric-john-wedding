@@ -47,20 +47,24 @@ export const siteConfig = {
     note: "Please come in your best formal/semi-formal ensemble"
   },
   narratives: {
-    groom: `Ced is currently putting his heart into writing the story of how he first met Ms. Kim—a memory that continues to make him smile every time he thinks about it. He wants to capture every detail just right: the moment their paths crossed, the first sparks of connection, and the unexpected feeling that something special had just begun.
+    groom: `Who would have thought I'll meet the love of my life through a simple table tennis match? I still remember I honestly didn't expect much that day - until I saw Kim play. She was really good! She returned every ball with ease, and right then, she caught my attention.
 
-He believes that their love story deserves to be told in the most genuine and meaningful way. That’s why he’s taking his time to compose it—choosing each word carefully, reliving the beautiful beginnings, and making sure the story reflects the depth of their relationship. Ced wants this narrative to feel as warm and timeless as the journey they’ve shared.
+But what stayed with me wasn't just how good she was at the game. She was warm and effortlessly beautiful. I'll admit, I was hesitant at first — learning she was a year older than me made me a little shy. But from the moment we started talking, everything felt light. We laughed, talked, and joked (while playing ofcourse!) as if we had known each other for so long. Time passed without me noticing, and before I knew it, I was walking her back to her dorm, not wanting the day to end just yet. I got her number that day, but I didn't message her right away. I didn't even add her on Facebook. I was afraid that if I did, she'd immediately know I liked her — and that maybe it would all end there.
 
-While the full story is still in the making, we invite you to revisit this page from time to time. Updates will be posted as soon as Ced finishes crafting the full narrative. Trust us—this is a story worth waiting for, and he can’t wait to share it with all of you.
+So instead, I quietly admired her from a distance. I found myself scrolling through her Facebook, to secretly know more about her. Few weeks later, we unexpectedly met again during a religious small group meeting. That moment felt like a second chance - and I didn't wanna miss out! I finally added her on Facebook, and as we talked more, I learned that one of her hobbies was jogging. Even though I wasn't really a morning jogger, I told her if I could join — just for a chance to know her more. From then on, we became jogging partners. And somehow, everything started falling into place. I found out her dentist was only walking distance from our place in Pasay, so I took the opportunity to accompany her to her monthly dental appointment. Before I knew it, I was already looking forward to the last Friday of every month - we'd sit together on the bus, talking for hours, never running out of things to say.
 
-Coming soon.`,
-    bride: `Kim is lovingly preparing her own version of the story—how she first met Ced, how their connection began, and how everything slowly fell into place. She wants to share those first impressions, the moments that made her heart take notice, and the quiet certainty she felt as their relationship grew.
+That's when I knew. She was a very special girl - warm-hearted, kind, and sweet. I liked her more than I ever expected. So I took a chance and started courting her.
 
-She believes their love story deserves to be told with sincerity and warmth. That’s why she’s taking her time, choosing words that genuinely capture her emotions, the memories she cherishes, and the journey that brought them to where they are today. For Kim, this story isn’t just about how they met—it’s about how love found its way naturally and beautifully into their lives.
+One bus ride, one last Friday, and countless conversations later, we found our way to each other.`,
+    bride: `You know how sometimes the best things happen when you least expect them? That's exactly how our love story started — over a table tennis match. No special occasion, no dramatic introductions, just a random game with a guy my friend happened to introduce me to. But somehow, in that ordinary moment, everything just clicked.
 
-While her full story is still being written, we encourage you to keep checking this page for updates. She’s excited to share her perspective soon, and she hopes it brings smiles, kilig, and a deeper look into the beginning of their forever.
+It was July 10, 2015 - the day I met Ced. We played almost non-stop, laughed, teased each other, and talked like we'd known each other forever — not just for a single morning. There was something about him — his enthusiasm, his smile, the way he genuinely listened, the little effort he made to keep the conversation going - It made me want to know him more.
 
-Coming soon.`,
+And honestly, I felt it right away, this guy was different. He was special. I remember whispering to my self that day, "Lord, I think he's the one." I know it sounds cliché—thinking that on the very day we met! How could I have known? But somehow, I did. Because it wasn't love at first sight—it was love at first encounter.
+
+Although I wasn't even sure we'd meet again after that day, I knew in my heart that he's the one.
+
+And that's how our love story began — quietly, effortlessly, and completely unexpected. The kind of connection that sneaks up on you without warning, and feels absolutely, undeniably right from the start.`,
   },
   colors: {
     primary: "#B76E79",
