@@ -19,8 +19,8 @@ const windSong = WindSong({
 })
 
 const storyTabs = [
-  { id: "groom", label: "Ced's Story", subtitle: "His side of forever" },
   { id: "bride", label: "Kim's Story", subtitle: "Her side of forever" },
+  { id: "groom", label: "Ced's Story", subtitle: "His side of forever" },
 ] as const
 
 type StoryTabId = (typeof storyTabs)[number]["id"]
