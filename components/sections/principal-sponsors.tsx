@@ -17,13 +17,18 @@ interface PrincipalSponsor {
 }
 
 const PEER_SPONSORS: string[] = [
-  "Diokno, Janzel",
-  "Diokno, Owen",
-  "Borromeo, Meg Angeli",
-  "Borromeo, Elbert June",
-  "Hernandez, Warnet",
-  "Yparagguire, Faye",
-  "Café, Nathalie",
+  "Dr.Aprilee Sta. Lucia-Tolentino",
+  "Mrs.Abad, Janzel",
+  "Mrs.Borromeo, Meg Angeli",
+  "Dr.Pelayo, Ardys",
+  "Mrs.Arengo, Christine",
+  "Mr.Joseph Dean Tolentino",
+  "Mr.Diokno, Chester Owen",
+  "Mr.Borromeo, Elbert June",
+  "Dr.Pelayo, Jerald",
+  "Mr.Arengo, Arturo",
+  "Mr.Hernandez, Warnet",
+  "Atty.Sta. Lucia, Richmund",
 ]
 
 export function PrincipalSponsors() {

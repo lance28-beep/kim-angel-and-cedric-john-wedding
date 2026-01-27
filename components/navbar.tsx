@@ -102,7 +102,7 @@ export function Navbar() {
           <Link href="#home" className="flex-shrink-0 group relative z-10">
             <div className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16">
               <Image
-                src="/monogram/newMonogram.png"
+                src="/monogram/updatedMonogram.png"
                 alt={`${siteConfig.couple.groomNickname} & ${siteConfig.couple.brideNickname} Monogram`}
                 fill
                 className="object-contain group-hover:scale-110 group-active:scale-105 transition-all duration-500 drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)] group-hover:drop-shadow-[0_2px_18px_rgba(0,0,0,0.7)]"

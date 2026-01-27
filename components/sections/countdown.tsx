@@ -171,7 +171,7 @@ export function Countdown() {
         >
           <div className="relative w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 opacity-90">
             <Image
-              src="/monogram/newMonogram.png"
+              src="/monogram/updatedMonogram.png"
               alt="Ced & Kim Monogram"
               fill
               className="object-contain"
