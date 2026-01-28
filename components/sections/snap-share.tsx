@@ -27,11 +27,8 @@ export function SnapShare() {
   const sanitizedBrideName = brideNickname.replace(/\s+/g, "")
 
   const hashtags = [
-    "#KimAndCedSayIDo",
-    `#${sanitizedGroomName}And${sanitizedBrideName}Wedding`,
-    `#${sanitizedGroomName}${sanitizedBrideName}2026`,
-    "#ForeverAndAlways",
-    `#${sanitizedGroomName}${sanitizedBrideName}Forever`,
+    "#KIMfinallyCEDyes!",
+    "#CEDyangtinadhanaparakayKIM",
   ]
 
   const shareText = `Celebrate ${groomNickname} & ${brideNickname}'s wedding! Explore the details and share your special memories: ${websiteUrl} ${hashtags.join(" ")} ✨`

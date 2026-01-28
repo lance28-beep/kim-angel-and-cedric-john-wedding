@@ -66,9 +66,19 @@ export function Details() {
   const receptionMapsLink = `https://maps.google.com/?q=${encodeURIComponent(siteConfig.reception.location)}`
 
   // Palettes (used only for color chips in attire card)
-  const sponsorPalette = ["#CC7A5F", "#E29671", "#BDA79A"]
+  const principalAndPeerSponsorsPalette = [
+    "#FFD4B2",
+    "#E5C1A4",
+    "#D1B096",
+    "#86AE81",
+    "#B3CEAF",
+    "#E2EFE0",
+    "#878787",
+    "#B8B8B8",
+    "#E7E7E7",
+  ]
+  const secondarySponsorsPalette = ["#F3D1C8", "#DBA490", "#D38988", "#BB6C5B", "#A2534C"]
   const guestPalette = ["#94A090", "#5C6843", "#3D5033", "#9CAE9C", "#95A37A"]
-  const secondaryPalette = ["#F2D1C8", "#DBA490", "#D38988", "#BB6C5B", "#A2534C"]
 
   const openInMaps = (link: string) => {
     window.open(link, "_blank", "noopener,noreferrer")
@@ -229,10 +239,10 @@ export function Details() {
             <div className="relative w-full rounded-2xl overflow-hidden border border-white/60 shadow-xl bg-white p-4 sm:p-6 space-y-3 sm:space-y-4">
               <div className="text-center space-y-2 sm:space-y-3">
                 <p className="text-xs sm:text-sm font-semibold text-[#3D5033]">
-                  Formal attire in our sage green, white, and gold motif is lovingly encouraged.
+                  Formal attire inspired by our wedding palette is lovingly encouraged.
                 </p>
                 <p className="text-xs sm:text-sm text-[#2E3A24]/90">
-                  Please dress within our wedding colors to help create a soft, elegant sage green celebration.
+                  Please dress within our wedding colors to help create a coordinated, elegant celebration.
                 </p>
               </div>
 
@@ -248,7 +258,7 @@ export function Details() {
                         Palette
                       </p>
                       <div className="flex flex-wrap gap-1.5">
-                        {sponsorPalette.map((color) => (
+                        {principalAndPeerSponsorsPalette.map((color) => (
                           <span
                             key={color}
                             className="w-7 h-7 rounded-full border border-white/70 shadow-sm"
@@ -286,7 +296,7 @@ export function Details() {
                 </div>
 
                 <div className="border-t border-[#F5E5D9] pt-4">
-                  <h5 className="font-semibold text-xs sm:text-sm text-[#3D5033] mb-2">Secondary Sponsors &amp; Bridesmaids</h5>
+                  <h5 className="font-semibold text-xs sm:text-sm text-[#3D5033] mb-2">Secondary Sponsors</h5>
                   <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
                     <p className="text-[#2E3A24]">
                       Coordinated gowns and attire using the warm, romantic tones from the palette below.
@@ -296,7 +306,7 @@ export function Details() {
                         Palette
                       </p>
                       <div className="flex flex-wrap gap-1.5">
-                        {secondaryPalette.map((color) => (
+                        {secondarySponsorsPalette.map((color) => (
                           <span
                             key={color}
                             className="w-7 h-7 rounded-full border border-white/70 shadow-sm"
@@ -312,7 +322,7 @@ export function Details() {
             </div>
 
             <p className="text-[11px] sm:text-sm text-center mt-2.5 sm:mt-3 text-[#3D5033] font-semibold">
-              Note: We kindly request no all-white dresses, jeans, or shorts.
+              Note: We kindly request our guests to avoid wearing black attire as we celebrate this joyful occasion. For our chosen theme, we’d also love for everyone to wear long gowns, as mid-length dresses are not preferred.
             </p>
           </div>
 
