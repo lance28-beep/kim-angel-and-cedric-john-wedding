@@ -38,14 +38,14 @@ interface TimelineEvent {
 const timelineEvents: TimelineEvent[] = [
   {
     time: "3:30 PM",
-    title: "Arrival of Procession",
+    title: "Arrival of Guests/Processional",
     description: "Guests and procession arrive to prepare, settle in, and get seated for the ceremony.",
     location: ceremonyVenue,
     icon: GuestsIcon,
     imageSrc: "/weddingtimeline/arrivalimage.png",
   },
   {
-    time: ceremonyTime,
+    time: "4:00 PM",
     title: "Wedding Ceremony",
     description: `Join us as ${groomNickname} & ${brideNickname} exchange vows and begin their life together.`,
     location: ceremonyVenue,

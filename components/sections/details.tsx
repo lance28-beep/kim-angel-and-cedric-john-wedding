@@ -69,16 +69,11 @@ export function Details() {
   const principalAndPeerSponsorsPalette = [
     "#FFD4B2",
     "#E5C1A4",
-    "#D1B096",
-    "#86AE81",
-    "#B3CEAF",
-    "#E2EFE0",
-    "#878787",
-    "#B8B8B8",
-    "#E7E7E7",
+    "#D1B096"
+
   ]
-  const secondarySponsorsPalette = ["#F3D1C8", "#DBA490", "#D38988", "#BB6C5B", "#A2534C"]
-  const guestPalette = ["#94A090", "#5C6843", "#3D5033", "#9CAE9C", "#95A37A"]
+  const secondarySponsorsPalette = ["#F3D1C8", "#D38988"]
+  const guestPalette = ["#86AE81", "#B3CEAF", "#E2EFE0", "#878787", "#B8B8B8"]
 
   const openInMaps = (link: string) => {
     window.open(link, "_blank", "noopener,noreferrer")
@@ -251,7 +246,7 @@ export function Details() {
                   <h5 className="font-semibold text-xs sm:text-sm text-[#3D5033] mb-2">Principal &amp; Peer Sponsors</h5>
                   <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
                     <p className="text-[#2E3A24]">
-                      Barong Tagalog and long gowns in curated shades from the palette below.
+                      Barong for Ninongs, Filipiniana or formal attire in cream or beige accents for Ninangs.
                     </p>
                     <div className="pt-1">
                       <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-[#3D5033] mb-1">
@@ -349,11 +344,11 @@ export function Details() {
               {/* Reception Guidelines */}
               <div className="relative w-full rounded-2xl overflow-hidden border border-white/60 shadow-xl bg-white p-4 sm:p-6">
                 <div className="mb-3 sm:mb-4">
-                  <h4 className="text-[0.75rem] sm:text-sm md:text-base font-semibold tracking-[0.3em] uppercase text-[#660033] mb-3">
+                  <h4 className="text-[0.75rem] sm:text-sm md:text-base font-semibold tracking-[0.3em] uppercase text-[#3D5033] mb-3">
                     Reception Guidelines
                   </h4>
                   <div className="space-y-2 sm:space-y-2.5">
-                    <p className="text-xs sm:text-sm text-[#4A2B2B] leading-relaxed">
+                    <p className="text-xs sm:text-sm text-[#2E3A24] leading-relaxed">
                       The seating will be formal, RSVP-style. That's why we're asking you to fill out this invitation form to secure your spot. Kindly do not bring plus ones unless explicitly stated in your invitation.
                     </p>
                   </div>
@@ -551,13 +546,13 @@ export function Details() {
                       <div
                         className="flex items-center gap-2 text-sm font-medium px-3 py-2 rounded-lg border"
                         style={{
-                          color: "#1a1a1a",
-                          backgroundColor: "#F5E5D9",
-                          opacity: 0.9,
-                          borderColor: "#66003333",
+                          color: "#2E3A24",
+                          backgroundColor: "#E2EFE0",
+                          opacity: 0.95,
+                          borderColor: "#3D503333",
                         }}
                       >
-                        <Clock className="w-4 h-4" style={{ color: "#660033" }} />
+                        <Clock className="w-4 h-4" style={{ color: "#3D5033" }} />
                         <span>
                           {siteConfig.ceremony.date} at {siteConfig.ceremony.time}
                         </span>

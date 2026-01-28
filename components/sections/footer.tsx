@@ -15,7 +15,7 @@ const cormorant = Cormorant_Garamond({
 export function Footer() {
   const year = new Date().getFullYear()
   const ceremonyDate = siteConfig.ceremony.date
-  const ceremonyTime = siteConfig.ceremony.time
+  const ceremonyTime = "4:00 PM"
   const receptionTime = siteConfig.reception.time
   const ceremonyVenue = siteConfig.ceremony.venue
   const receptionVenue = siteConfig.reception.venue
