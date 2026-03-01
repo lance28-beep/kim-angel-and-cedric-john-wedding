@@ -2,12 +2,18 @@
 
 import { useEffect, useState } from "react"
 import Image from "next/image"
-import { motion } from "motion/react"
-import { Instagram, Facebook, Twitter, Share2, Copy, Check, Download } from "lucide-react"
+import { motion, AnimatePresence } from "motion/react"
+import { Instagram, Facebook, Twitter, Share2, Copy, Check, Download, X } from "lucide-react"
 import { Section } from "@/components/section"
 import { QRCodeCanvas } from "qrcode.react"
 import { siteConfig } from "@/content/site"
 import { Cormorant_Garamond } from "next/font/google"
+
+const favoriteMoments = [
+  { src: "/mobile-background/couple 1.JPG", alt: "Wedding moment 1" },
+  { src: "/mobile-background/couple 2.JPG", alt: "Wedding moment 2" },
+  { src: "/desktop-background/couple 1.JPG", alt: "Wedding moment 3" },
+]
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -17,6 +23,7 @@ const cormorant = Cormorant_Garamond({
 export function SnapShare() {
   const [copiedHashtag, setCopiedHashtag] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null)
 
   const websiteUrl = typeof window !== "undefined" ? window.location.href : "https://example.com"
   const driveLink = siteConfig.snapShare?.googleDriveLink || ""
@@ -43,6 +50,20 @@ export function SnapShare() {
       window.removeEventListener("resize", checkMobile)
     }
   }, [])
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && lightboxImage) setLightboxImage(null)
+    }
+    if (lightboxImage) {
+      document.addEventListener("keydown", handleEscape)
+      document.body.style.overflow = "hidden"
+    }
+    return () => {
+      document.removeEventListener("keydown", handleEscape)
+      document.body.style.overflow = "unset"
+    }
+  }, [lightboxImage])
 
   const copyToClipboard = async (text: string) => {
     try {
@@ -184,38 +205,31 @@ export function SnapShare() {
                 <h4 className={`${cormorant.className} text-[13px] sm:text-lg md:text-xl font-semibold text-[#3D5033] mb-3 text-center`}>
                   Our Favorite Moments
                 </h4>
-                <div className="grid grid-cols-2 gap-1.5 sm:gap-3 md:gap-4">
-                  <motion.div
-                    className="relative aspect-square rounded-xl overflow-hidden shadow-md border-2 border-[#525E2C]/20 hover:border-[#525E2C]/40 transition-all"
-                    whileHover={{ scale: 1.03 }}
-                    transition={{ duration: 0.25 }}
-                  >
-                    <Image src="/mobile-background/couple 1.JPG" alt="Wedding moment 1" fill className="object-cover" />
-                  </motion.div>
-                  <motion.div
-                    className="relative aspect-square rounded-xl overflow-hidden shadow-md border-2 border-[#525E2C]/20 hover:border-[#525E2C]/40 transition-all"
-                    whileHover={{ scale: 1.03 }}
-                    transition={{ duration: 0.25 }}
-                  >
-                    <Image src="/mobile-background/couple 2.JPG" alt="Wedding moment 2" fill className="object-cover" />
-                  </motion.div>
-                  <motion.div
-                    className="relative col-span-2 aspect-[3/2] rounded-xl overflow-hidden shadow-md border-2 border-[#525E2C]/20 hover:border-[#525E2C]/40 transition-all"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.25 }}
-                  >
-                    <Image src="/desktop-background/couple 1.JPG" alt="Wedding moment 3" fill className="object-cover" />
-                  </motion.div>
+                <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-5">
+                  {favoriteMoments.map((moment, idx) => (
+                    <motion.button
+                      key={moment.src}
+                      type="button"
+                      onClick={() => setLightboxImage(moment.src)}
+                      className={`relative rounded-xl overflow-hidden shadow-md border-2 border-[#525E2C]/20 hover:border-[#525E2C]/50 transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#525E2C] focus-visible:ring-offset-2 ${
+                        idx === 2 ? "col-span-2 aspect-[16/9] sm:aspect-[21/9]" : "aspect-square"
+                      }`}
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ duration: 0.25 }}
+                    >
+                      <Image src={moment.src} alt={moment.alt} fill className="object-cover" sizes="(max-width: 640px) 50vw, 33vw" />
+                    </motion.button>
+                  ))}
                 </div>
                 <p className={`${cormorant.className} text-[#3D5033]/70 text-[10px] sm:text-xs text-center mt-4 px-1.5`}>
-                  Tag your snapshots with our hashtags to be featured in our keepsake gallery.
+                  Click any photo to enlarge. Tag your snapshots with our hashtags to be featured in our keepsake gallery.
                 </p>
               </div>
             </div>
           </motion.div>
 
           <motion.div className="space-y-4 lg:space-y-6 h-full flex flex-col" variants={fadeInUp}>
-            <div className="p-[1.5px] rounded-[22px] bg-gradient-to-br from-[#525E2C]/50 via-[#909E8D]/30 to-[#525E2C]/50 flex-1">
+            {/* <div className="p-[1.5px] rounded-[22px] bg-gradient-to-br from-[#525E2C]/50 via-[#909E8D]/30 to-[#525E2C]/50 flex-1">
               <div className="bg-white rounded-[20px] p-3 sm:p-6 md:p-8 shadow-xl border border-white/60 text-center h-full flex flex-col">
                 <h4 className={`${cormorant.className} text-[15px] sm:text-xl md:text-2xl font-semibold text-[#3D5033] mb-3`}>
                   Share Our Wedding Website
@@ -247,9 +261,9 @@ export function SnapShare() {
                   Scan with any camera app to open the full invitation and schedule.
                 </p>
               </div>
-            </div>
+            </div> */}
 
-            <div className="bg-white rounded-[20px] p-3 sm:p-6 md:p-7 shadow-xl border border-white/60">
+            {/* <div className="bg-white rounded-[20px] p-3 sm:p-6 md:p-7 shadow-xl border border-white/60">
               <h5 className={`${cormorant.className} text-[15px] sm:text-xl font-semibold text-[#3D5033] mb-3 text-center`}>
                 Share on Social Media
               </h5>
@@ -286,7 +300,7 @@ export function SnapShare() {
                   <span className={`${cormorant.className} font-medium text-xs sm:text-sm uppercase tracking-[0.2em]`}>Twitter</span>
                 </button>
               </div>
-            </div>
+            </div> */}
 
             {driveLink && (
               <div className="p-[1.5px] rounded-[22px] bg-gradient-to-br from-[#525E2C]/50 via-[#909E8D]/30 to-[#525E2C]/50">
@@ -336,6 +350,43 @@ export function SnapShare() {
             )}
           </motion.div>
         </motion.div>
+
+        {/* Image lightbox */}
+        <AnimatePresence>
+          {lightboxImage && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
+              onClick={() => setLightboxImage(null)}
+            >
+              <button
+                onClick={() => setLightboxImage(null)}
+                className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors z-10"
+                aria-label="Close"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                className="relative max-w-5xl max-h-[90vh] w-full"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Image
+                  src={lightboxImage}
+                  alt="Wedding moment"
+                  width={1200}
+                  height={800}
+                  className="w-full h-auto max-h-[90vh] object-contain rounded-lg"
+                  sizes="100vw"
+                />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <motion.div className="text-center mt-7 sm:mt-12" variants={fadeInUp}>
           <div className="bg-white/10 rounded-[22px] p-4 sm:p-7 shadow-[0_25px_80px_rgba(0,0,0,0.35)] border border-white/20 max-w-3xl mx-auto backdrop-blur-xl">

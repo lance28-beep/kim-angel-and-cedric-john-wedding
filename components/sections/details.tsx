@@ -65,16 +65,6 @@ export function Details() {
   const ceremonyMapsLink = `https://maps.google.com/?q=${encodeURIComponent(siteConfig.ceremony.location)}`
   const receptionMapsLink = `https://maps.google.com/?q=${encodeURIComponent(siteConfig.reception.location)}`
 
-  // Palettes (used only for color chips in attire card)
-  const principalAndPeerSponsorsPalette = [
-    "#FFD4B2",
-    "#E5C1A4",
-    "#D1B096"
-
-  ]
-  const secondarySponsorsPalette = ["#F3D1C8", "#D38988"]
-  const guestPalette = ["#86AE81", "#B3CEAF", "#E2EFE0", "#878787", "#B8B8B8"]
-
   const openInMaps = (link: string) => {
     window.open(link, "_blank", "noopener,noreferrer")
   }
@@ -231,87 +221,42 @@ export function Details() {
               </h4>
             </div>
 
-            <div className="relative w-full rounded-2xl overflow-hidden border border-white/60 shadow-xl bg-white p-4 sm:p-6 space-y-3 sm:space-y-4">
-              <div className="text-center space-y-2 sm:space-y-3">
-                <p className="text-xs sm:text-sm font-semibold text-[#3D5033]">
-                  Formal attire inspired by our wedding palette is lovingly encouraged.
-                </p>
-                <p className="text-xs sm:text-sm text-[#2E3A24]/90">
-                  Please dress within our wedding colors to help create a coordinated, elegant celebration.
-                </p>
+            <div className="relative w-full rounded-2xl overflow-hidden border border-white/60 shadow-xl bg-white p-4 sm:p-6 space-y-4 sm:space-y-5">
+              <div className="relative w-full aspect-auto max-w-2xl mx-auto rounded-xl overflow-hidden">
+                <Image
+                  src="/Details/newattireguide.png"
+                  alt="Attire and motif guidelines"
+                  width={800}
+                  height={600}
+                  className="w-full h-auto object-contain"
+                  sizes="(max-width: 768px) 100vw, 800px"
+                />
               </div>
 
-              <div className="space-y-4">
-                <div className="border-t border-[#F5E5D9] pt-4">
-                  <h5 className="font-semibold text-xs sm:text-sm text-[#3D5033] mb-2">Principal &amp; Peer Sponsors</h5>
-                  <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-                    <p className="text-[#2E3A24]">
-                      Barong for Ninongs, Filipiniana or formal attire in cream or beige accents for Ninangs.
-                    </p>
-                    <div className="pt-1">
-                      <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-[#3D5033] mb-1">
-                        Palette
-                      </p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {principalAndPeerSponsorsPalette.map((color) => (
-                          <span
-                            key={color}
-                            className="w-7 h-7 rounded-full border border-white/70 shadow-sm"
-                            style={{ backgroundColor: color }}
-                            title={color}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+              <div className="space-y-4 border-t border-[#F5E5D9] pt-4">
+                <div>
+                  <h5 className="font-semibold text-xs sm:text-sm text-[#3D5033] mb-2">For Our Dear Guests</h5>
+                  <ul className="space-y-1 text-xs sm:text-sm text-[#2E3A24]">
+                    <li><span className="font-medium">Ladies:</span> Formal long gown – plain or floral designs</li>
+                    <li><span className="font-medium">Gentlemen:</span> Long sleeves with slacks or a suit</li>
+                  </ul>
                 </div>
-
                 <div className="border-t border-[#F5E5D9] pt-4">
-                  <h5 className="font-semibold text-xs sm:text-sm text-[#3D5033] mb-2">Wedding Guests</h5>
-                  <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-                    <p className="text-[#2E3A24]">
-                      Semi-formal or formal attire in sage greens, soft neutrals, and light gold accents is warmly encouraged.
-                    </p>
-                    <div className="pt-1">
-                      <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-[#3D5033] mb-1">
-                        Palette
-                      </p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {guestPalette.map((color) => (
-                          <span
-                            key={color}
-                            className="w-7 h-7 rounded-full border border-white/70 shadow-sm"
-                            style={{ backgroundColor: color }}
-                            title={color}
-                          />
-                        ))}
-                      </div>
-                    </div>
+                  <h5 className="font-semibold text-xs sm:text-sm text-[#3D5033] mb-2">For Our Principal Sponsors</h5>
+                  <div className="relative w-full max-w-xl mx-auto rounded-xl overflow-hidden mb-2">
+                    <Image
+                      src="/Details/attirefor principal sponsors.png"
+                      alt="Attire guidelines for principal sponsors"
+                      width={600}
+                      height={400}
+                      className="w-full h-auto object-contain"
+                      sizes="(max-width: 768px) 100vw, 600px"
+                    />
                   </div>
-                </div>
-
-                <div className="border-t border-[#F5E5D9] pt-4">
-                  <h5 className="font-semibold text-xs sm:text-sm text-[#3D5033] mb-2">Secondary Sponsors</h5>
-                  <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-                    <p className="text-[#2E3A24]">
-                      Coordinated gowns and attire using the warm, romantic tones from the palette below.
-                    </p>
-                    <div className="pt-1">
-                      <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-[#3D5033] mb-1">
-                        Palette
-                      </p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {secondarySponsorsPalette.map((color) => (
-                          <span
-                            key={color}
-                            className="w-7 h-7 rounded-full border border-white/70 shadow-sm"
-                            style={{ backgroundColor: color }}
-                            title={color}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+                  <ul className="space-y-1 text-xs sm:text-sm text-[#2E3A24]">
+                    <li><span className="font-medium">Ladies:</span> Formal gown or Filipiniana attire</li>
+                    <li><span className="font-medium">Gentlemen:</span> Barong Tagalog</li>
+                  </ul>
                 </div>
               </div>
             </div>

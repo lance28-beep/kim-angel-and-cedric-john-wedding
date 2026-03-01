@@ -4,6 +4,7 @@ import { useState } from "react"
 import { ChevronDown } from "lucide-react"
 import { Section } from "@/components/section"
 import { Cormorant_Garamond } from "next/font/google"
+import { siteContent } from "@/lib/content"
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -19,7 +20,7 @@ const faqItems: FAQItem[] = [
   {
     question: "When is the wedding?",
     answer:
-      "Our wedding will be held on June 7, 2026. The wedding ceremony will start at exactly 4:15 PM, PH Time. We kindly ask guests to arrive by 3:45 PM to help us begin promptly.",
+      "Our wedding will be held on April 30, 2026. The wedding ceremony will start at exactly 4:00 PM, PH Time. We kindly ask guests to arrive by 3:30 PM to help us begin promptly.",
   },
   {
     question: "Where will the ceremony and reception take place?",
@@ -29,7 +30,7 @@ const faqItems: FAQItem[] = [
   {
     question: "When is the RSVP deadline?",
     answer:
-      `Kindly respond on or before June 7, 2026. Your response helps us finalize our guest list and seating arrangements. Thank you!\n\n[RSVP_LINK]Click here to RSVP[/RSVP_LINK]`,
+      `Kindly respond on or before ${siteContent.details.rsvp.deadline}. Your response helps us finalize our guest list and seating arrangements. Thank you!\n\n[RSVP_LINK]Click here to RSVP[/RSVP_LINK]`,
   },
   {
     question: "How do I RSVP?",
@@ -39,7 +40,7 @@ const faqItems: FAQItem[] = [
   {
     question: "What time should I arrive?",
     answer:
-      "Kindly arrive by 3:45 PM so we can begin the ceremony promptly at exactly 4:15 PM. Your punctuality means so much to us — and don't forget to have a light snack beforehand so you can enjoy the celebration comfortably!",
+      "Kindly arrive by 3:30 PM so we can begin the ceremony promptly at exactly 4:00 PM. Your punctuality means so much to us — and don't forget to have a light snack beforehand so you can enjoy the celebration comfortably!",
   },
   {
     question: "What should I wear?",

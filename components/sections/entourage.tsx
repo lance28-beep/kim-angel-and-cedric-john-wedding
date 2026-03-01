@@ -43,16 +43,18 @@ export function Entourage() {
 
   const fetchEntourage = async () => {
     setIsLoading(true)
+    setError(null)
     try {
       const response = await fetch("/api/entourage", { cache: "no-store" })
+      const data = await response.json()
       if (!response.ok) {
-        throw new Error("Failed to fetch entourage")
+        throw new Error((data as { error?: string })?.error || "Failed to fetch entourage")
       }
-      const data: EntourageMember[] = await response.json()
-      setEntourage(data)
-    } catch (error: any) {
-      console.error("Failed to load entourage:", error)
-      setError(error?.message || "Failed to load entourage")
+      setEntourage(Array.isArray(data) ? data : [])
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to load entourage"
+      console.error("Failed to load entourage:", err)
+      setError(msg)
     } finally {
       setIsLoading(false)
     }
@@ -321,10 +323,10 @@ export function Entourage() {
                       )}
                       <TwoColumnLayout singleTitle="The Couple" centerContent={true}>
                         <div className="px-2 sm:px-3 md:px-4">
-                          {groom && <NameItem member={groom} align="right" />}
+                          {bride && <NameItem member={bride} align="right" />}
                         </div>
                         <div className="px-2 sm:px-3 md:px-4">
-                          {bride && <NameItem member={bride} align="left" />}
+                          {groom && <NameItem member={groom} align="left" />}
                         </div>
                       </TwoColumnLayout>
                     </div>

@@ -16,20 +16,6 @@ interface PrincipalSponsor {
   FemalePrincipalSponsor: string
 }
 
-/** Couple peer sponsors: [left, right] pairs for 2-column layout */
-const PEER_COUPLES: [string, string][] = [
-  ["Dr. Aprilee Sta. Lucia-Tolentino", "Mr. Joseph Dean Tolentino"],
-  ["Mrs. Abad, Janzel", "Mr. Diokno, Chester Owen"],
-  ["Mrs. Borromeo, Meg Angeli", "Mr. Borromeo, Elbert June"],
-  ["Dr. Pelayo, Ardys", "Dr. Pelayo, Jerald"],
-  ["Mrs. Arengo, Christine", "Mr. Arengo, Arturo"],
-]
-/** Single peer sponsors: 1-column centered */
-const PEER_SINGLES: string[] = [
-  "Mr. Hernandez, Warnet",
-  "Atty. Sta. Lucia, Richmund",
-]
-
 export function PrincipalSponsors() {
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -84,14 +70,16 @@ export function PrincipalSponsors() {
 
   const fetchSponsors = async () => {
     setIsLoading(true)
+    setError(null)
     try {
       const res = await fetch("/api/principal-sponsor", { cache: "no-store" })
-      if (!res.ok) throw new Error("Failed to load principal sponsors")
-      const data: PrincipalSponsor[] = await res.json()
-      setSponsors(data)
-    } catch (e: any) {
-      console.error(e)
-      setError(e?.message || "Failed to load principal sponsors")
+      const data = await res.json()
+      if (!res.ok) throw new Error((data as { error?: string })?.error || "Failed to load principal sponsors")
+      setSponsors(Array.isArray(data) ? data : [])
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to load principal sponsors"
+      console.error("Failed to load principal sponsors:", err)
+      setError(msg)
     } finally {
       setIsLoading(false)
     }
@@ -240,38 +228,6 @@ export function PrincipalSponsors() {
                       ))}
                     </div>
                   </div>
-
-                  {/* Peer Sponsors: 2-col couples + 1-col single centered */}
-                  {(PEER_COUPLES.length > 0 || PEER_SINGLES.length > 0) && (
-                    <div className="pt-2 sm:pt-3 md:pt-4 border-t border-white/10">
-                      <SectionTitle align="center" className="mb-1 sm:mb-2">
-                        Peer Sponsors
-                      </SectionTitle>
-                      {PEER_COUPLES.length > 0 && (
-                        <div className="grid grid-cols-1 min-[350px]:grid-cols-2 gap-x-1.5 sm:gap-x-2 md:gap-x-3 gap-y-1 sm:gap-y-1.5 md:gap-y-2 items-stretch mb-4 sm:mb-6">
-                            {PEER_COUPLES.map(([left, right], idx) => (
-                              <React.Fragment key={`peer-couple-${idx}-${left}-${right}`}>
-                                <div className="px-2 sm:px-3 md:px-4">
-                                  <NameItem name={left} align="right" />
-                                </div>
-                                <div className="px-2 sm:px-3 md:px-4">
-                                  <NameItem name={right} align="left" />
-                                </div>
-                              </React.Fragment>
-                            ))}
-                        </div>
-                      )}
-                      {PEER_SINGLES.length > 0 && (
-                        <div className="flex flex-col items-center justify-center max-w-md mx-auto space-y-0.5 sm:space-y-1">
-                            {PEER_SINGLES.map((name) => (
-                              <div key={name} className="w-full flex justify-center">
-                                <NameItem name={name} align="center" />
-                              </div>
-                            ))}
-                        </div>
-                      )}
-                    </div>
-                  )}
                 </div>
               )}
             </div>

@@ -4,7 +4,7 @@ import { useRef, useState } from "react"
 import { Section } from "@/components/section"
 import { Button } from "@/components/ui/button"
 import { Heart, CheckCircle, AlertCircle, User, Users, MessageSquare } from "lucide-react"
-// import { siteContent } from "@/lib/content"
+import { siteContent } from "@/lib/content"
 
 interface RSVPFormProps {
   onSuccess?: () => void
@@ -127,7 +127,7 @@ export function RSVP({ onSuccess }: RSVPFormProps) {
                 <p className="text-sm sm:text-lg md:text-xl text-[#402921]/80 font-sans font-light leading-relaxed">
                   The favor of your reply is kindly requested on or before{" "}
                   <span className="font-semibold text-[#402921] bg-[#402921]/10 px-2 py-1 rounded-lg text-sm md:text-base">
-                    June 7, 2026
+                    {siteContent.details.rsvp.deadline}
                   </span>
                 </p>
               </div>

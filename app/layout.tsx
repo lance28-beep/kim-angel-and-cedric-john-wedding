@@ -3,8 +3,6 @@ import type { Metadata } from "next"
 import { Great_Vibes, Inter, Imperial_Script } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
-import { Navbar } from "@/components/navbar"
-
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kim-angel-and-cedric-john-wedding.netlify.app/"
 const canonicalUrl = siteUrl.replace(/\/$/, "")
 const eventImagePath = "/desktop-background/couple 1.JPG"
@@ -149,7 +147,6 @@ export default function RootLayout({
         <link rel="preload" as="image" href="/desktop-background/DSCF2444-min.jpg" media="(min-width: 768px)" />
       </head>
       <body className={`${inter.variable} ${greatVibes.variable} ${imperialScript.variable} font-inter antialiased text-foreground`}>
-        <Navbar />
         {children}
         <Analytics />
       </body>

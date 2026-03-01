@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Loader2, Mail, MessageSquare, Heart, Sparkles, User } from "lucide-react"
 import { Cormorant_Garamond } from "next/font/google"
+import { siteContent } from "@/lib/content"
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -123,7 +124,7 @@ export function BookOfGuests() {
         </h2>
 
         <p className={`${cormorant.className} text-xs sm:text-sm md:text-base text-white/95 font-light max-w-xl mx-auto leading-relaxed px-2 mb-3 sm:mb-4 md:mb-5`}>
-          See who&apos;s celebrating with us on our special day.
+          See who&apos;s celebrating with us on our special day. Kindly RSVP by {siteContent.details.rsvp.deadline}.
         </p>
 
         {/* Decorative element below subtitle */}
