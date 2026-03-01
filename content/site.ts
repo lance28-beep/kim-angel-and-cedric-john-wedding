@@ -131,30 +131,5 @@ export const entourage = [
 
 export const principalSponsors = [
   // Paired from provided Male and Female Sponsors (order-based)
-  { name: "Mr. Jony Balao", spouse: "Mrs. Conception Balao" },
-  { name: "Mr. Cresencio Francisco", spouse: "Dr. Editha Francisco" },
-  { name: "Mr. Aurelio Sab-it", spouse: "Mrs. Ester Sab-it" },
-  { name: "Mr. Pio McLiing", spouse: "Mrs. Edna Boloma" },
-  { name: "Mr. Fabian Dupiano", spouse: "Mrs. Mary Christine Dupiano" },
-  { name: "Mr. Roberto Dosdos", spouse: "Mrs. Angelica Dosdos" },
-  { name: "Mr. George Sacla", spouse: "Mrs. Minda De Bolt Sacla" },
-  { name: "Mr. Elmo Casallo", spouse: "Mrs. Nora Casallo" },
-  { name: "Engr. Jimmy Atayoc Sr", spouse: "Mrs. Mercedes Atayoc" },
-  { name: "Mr. Tomas Moyongan", spouse: "Mrs. Betty Moyongan" },
-  { name: "Mr. Roger Balantin", spouse: "Mrs. Delia Balantin" },
-  { name: "Honorable Mayor Roderick Awingan", spouse: "Mrs. ____ Awingan" },
-  { name: "Engr Roy Kepes", spouse: "Vice Gove MaryRose Kepes Fongwan" },
-  { name: "Mr. Bobos Nestor Fongwan", spouse: "Mrs. Marga Sison" },
-  { name: "Mr. Junvic Suguinsin", spouse: "Mrs. Lavenia Inson" },
-  { name: "Mr. Salino Dosdos Jr", spouse: "Mrs. Gina Guiang" },
-  { name: "Mr. Pampilo Balajadia", spouse: "Mrs. Angelica Balajadia" },
-  { name: "Mr. Alan M. Serduar", spouse: "Mrs. Oliva Serduar" },
-  { name: "Mr. Miguel Franco", spouse: "Mrs. Angela Balajadia" },
-  // Remaining Female Sponsors without paired male
-  { name: "Mrs. Carina C. Watanabe", spouse: "" },
-  { name: "Mrs. Cecile Palilio", spouse: "" },
-  { name: "Mrs. Nida Saguinsin", spouse: "" },
-  { name: "Mrs. Araceli Pitogo", spouse: "" },
-  { name: "Mrs. Alda Unidad", spouse: "" },
-  { name: "Mrs. Reine Bernadeth Bolanos", spouse: "" },
+ 
 ]

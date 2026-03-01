@@ -1,5 +1,4 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { principalSponsors as fallbackSponsors } from "@/content/site"
 
 // You'll need to replace this with your PrincipalSponsor Google Apps Script URL
 const PRINCIPAL_SPONSOR_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxl-_WXNHX3z1ErOWGVmqx4UOFILa-TeCtZhXO6AAA-_R-w3kL3LfIwVzIW0bGtu6wp/exec'
@@ -10,15 +9,7 @@ export interface PrincipalSponsor {
   FemalePrincipalSponsor: string
 }
 
-/** Transform static format to API format. Used as dev fallback when Google Apps Script is unreachable (e.g. localhost). */
-function toApiFormat(item: { name: string; spouse: string }): PrincipalSponsor {
-  if (!item.spouse && (item.name.startsWith("Mrs.") || item.name.startsWith("Dr."))) {
-    return { MalePrincipalSponsor: "", FemalePrincipalSponsor: item.name }
-  }
-  return { MalePrincipalSponsor: item.name, FemalePrincipalSponsor: item.spouse || "" }
-}
-
-// GET: Fetch all principal sponsors
+// GET: Fetch all principal sponsors (only from Google Apps Script — no content/site fallback)
 export async function GET() {
   try {
     const controller = new AbortController()
@@ -39,11 +30,6 @@ export async function GET() {
 
     if (!response.ok) {
       console.warn('[PrincipalSponsor API] Google Apps Script failed:', { status: response.status, body: text.slice(0, 200) })
-      if (process.env.NODE_ENV === 'development') {
-        const fallback = fallbackSponsors.map(toApiFormat)
-        console.warn('[PrincipalSponsor API] Using static fallback data for localhost')
-        return NextResponse.json(fallback)
-      }
       return NextResponse.json([])
     }
 
@@ -52,29 +38,17 @@ export async function GET() {
       data = JSON.parse(text)
     } catch {
       console.warn('[PrincipalSponsor API] Invalid JSON from script. Snippet:', text.slice(0, 200))
-      if (process.env.NODE_ENV === 'development') {
-        const fallback = fallbackSponsors.map(toApiFormat)
-        return NextResponse.json(fallback)
-      }
       return NextResponse.json([])
     }
 
     if (!Array.isArray(data)) {
       console.warn('[PrincipalSponsor API] Expected array, got:', typeof data)
-      if (process.env.NODE_ENV === 'development') {
-        const fallback = fallbackSponsors.map(toApiFormat)
-        return NextResponse.json(fallback)
-      }
       return NextResponse.json([])
     }
 
     return NextResponse.json(data)
   } catch (error) {
     console.warn('[PrincipalSponsor API] Error fetching principal sponsors:', error)
-    if (process.env.NODE_ENV === 'development') {
-      const fallback = fallbackSponsors.map(toApiFormat)
-      return NextResponse.json(fallback)
-    }
     return NextResponse.json([])
   }
 }

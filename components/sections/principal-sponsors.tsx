@@ -193,8 +193,8 @@ export function PrincipalSponsors() {
                   </div>
                 </div>
               ) : error ? (
-                <div className="flex items-center justify-center py-24 sm:py-28 md:py-32">
-                  <div className="text-center">
+                <div className="flex flex-col items-center justify-center py-16 sm:py-20">
+                  <div className="text-center mb-6">
                     <p className="text-red-300 font-serif text-base sm:text-lg mb-3">{error}</p>
                     <button
                       onClick={fetchSponsors}
@@ -203,15 +203,37 @@ export function PrincipalSponsors() {
                       Try again
                     </button>
                   </div>
-                </div>
-              ) : sponsorPairs.length === 0 ? (
-                <div className="text-center py-24 sm:py-28 md:py-32">
-                  <Users className="h-14 w-14 sm:h-16 sm:w-16 text-white/40 mx-auto mb-4" />
-                  <p className="text-white/75 font-serif text-base sm:text-lg">No sponsors yet</p>
+                  {(PEER_COUPLES.length > 0 || PEER_SINGLES.length > 0) && (
+                    <div className="w-full pt-6 border-t border-white/10">
+                      <div className="pt-2 sm:pt-3 md:pt-4">
+                        <SectionTitle align="center" className="mb-1 sm:mb-2">Joint Sponsors</SectionTitle>
+                        <p className="text-white/75 font-serif text-base sm:text-lg text-center mb-4">Our cherished younger mentors</p>
+                        {PEER_COUPLES.length > 0 && (
+                          <div className="grid grid-cols-1 min-[350px]:grid-cols-2 gap-x-1.5 sm:gap-x-2 md:gap-x-3 gap-y-1 sm:gap-y-1.5 md:gap-y-2 items-stretch mb-4 sm:mb-6">
+                            {PEER_COUPLES.map(([left, right], idx) => (
+                              <React.Fragment key={`peer-couple-${idx}-${left}-${right}`}>
+                                <div className="px-2 sm:px-3 md:px-4"><NameItem name={left} align="right" /></div>
+                                <div className="px-2 sm:px-3 md:px-4"><NameItem name={right} align="left" /></div>
+                              </React.Fragment>
+                            ))}
+                          </div>
+                        )}
+                        {PEER_SINGLES.length > 0 && (
+                          <div className="flex flex-col items-center justify-center max-w-md mx-auto space-y-0.5 sm:space-y-1">
+                            {PEER_SINGLES.map((name) => (
+                              <div key={name} className="w-full flex justify-center">
+                                <NameItem name={name} align="center" />
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div className="mb-3 sm:mb-4 md:mb-6 lg:mb-8 space-y-6 sm:space-y-8">
-                  {/* Principal Sponsors grid */}
+                  {/* Principal Sponsors grid — from API only */}
                   <div>
                     <div className="grid grid-cols-1 min-[350px]:grid-cols-2 gap-x-1.5 sm:gap-x-2 md:gap-x-3 mb-1.5 sm:mb-2 md:mb-3">
                       <SectionTitle align="right" className="pr-2 sm:pr-3 md:pr-4">
@@ -221,45 +243,46 @@ export function PrincipalSponsors() {
                         Female Principal Sponsors
                       </SectionTitle>
                     </div>
-                    <div className="grid grid-cols-1 min-[350px]:grid-cols-2 gap-x-1.5 sm:gap-x-2 md:gap-x-3 gap-y-1 sm:gap-y-1.5 md:gap-y-2 items-stretch">
-                      {sponsorPairs.map((pair, idx) => (
-                        <React.Fragment key={`pair-${idx}-${pair.MalePrincipalSponsor || 'empty'}-${pair.FemalePrincipalSponsor || 'empty'}`}>
-                          <div className="px-2 sm:px-3 md:px-4">
-                            {pair.MalePrincipalSponsor ? (
-                              <NameItem name={pair.MalePrincipalSponsor} align="right" />
-                            ) : (
-                              <div className="py-0.5 sm:py-1 md:py-1.5" />
-                            )}
-                          </div>
-                          <div className="px-2 sm:px-3 md:px-4">
-                            {pair.FemalePrincipalSponsor ? (
-                              <NameItem name={pair.FemalePrincipalSponsor} align="left" />
-                            ) : (
-                              <div className="py-0.5 sm:py-1 md:py-1.5" />
-                            )}
-                          </div>
-                        </React.Fragment>
-                      ))}
-                    </div>
+                    {sponsorPairs.length === 0 ? (
+                      <div className="text-center py-12 sm:py-16">
+                        <Users className="h-12 w-12 sm:h-14 sm:w-14 text-white/40 mx-auto mb-2" />
+                        <p className="text-white/75 font-serif text-sm sm:text-base">No principal sponsors yet</p>
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-1 min-[350px]:grid-cols-2 gap-x-1.5 sm:gap-x-2 md:gap-x-3 gap-y-1 sm:gap-y-1.5 md:gap-y-2 items-stretch">
+                        {sponsorPairs.map((pair, idx) => (
+                          <React.Fragment key={`pair-${idx}-${pair.MalePrincipalSponsor || 'empty'}-${pair.FemalePrincipalSponsor || 'empty'}`}>
+                            <div className="px-2 sm:px-3 md:px-4">
+                              {pair.MalePrincipalSponsor ? (
+                                <NameItem name={pair.MalePrincipalSponsor} align="right" />
+                              ) : (
+                                <div className="py-0.5 sm:py-1 md:py-1.5" />
+                              )}
+                            </div>
+                            <div className="px-2 sm:px-3 md:px-4">
+                              {pair.FemalePrincipalSponsor ? (
+                                <NameItem name={pair.FemalePrincipalSponsor} align="left" />
+                              ) : (
+                                <div className="py-0.5 sm:py-1 md:py-1.5" />
+                              )}
+                            </div>
+                          </React.Fragment>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
-                  {/* Peer Sponsors: 2-col couples + 1-col single centered */}
+                  {/* Joint Sponsors — hardcoded PEER_COUPLES and PEER_SINGLES only */}
                   {(PEER_COUPLES.length > 0 || PEER_SINGLES.length > 0) && (
                     <div className="pt-2 sm:pt-3 md:pt-4 border-t border-white/10">
-                      <SectionTitle align="center" className="mb-1 sm:mb-2">
-                        Joint Sponsors
-                      </SectionTitle>
+                      <SectionTitle align="center" className="mb-1 sm:mb-2">Joint Sponsors</SectionTitle>
                       <p className="text-white/75 font-serif text-base sm:text-lg text-center mb-4">Our cherished younger mentors</p>
                       {PEER_COUPLES.length > 0 && (
                         <div className="grid grid-cols-1 min-[350px]:grid-cols-2 gap-x-1.5 sm:gap-x-2 md:gap-x-3 gap-y-1 sm:gap-y-1.5 md:gap-y-2 items-stretch mb-4 sm:mb-6">
                           {PEER_COUPLES.map(([left, right], idx) => (
                             <React.Fragment key={`peer-couple-${idx}-${left}-${right}`}>
-                              <div className="px-2 sm:px-3 md:px-4">
-                                <NameItem name={left} align="right" />
-                              </div>
-                              <div className="px-2 sm:px-3 md:px-4">
-                                <NameItem name={right} align="left" />
-                              </div>
+                              <div className="px-2 sm:px-3 md:px-4"><NameItem name={left} align="right" /></div>
+                              <div className="px-2 sm:px-3 md:px-4"><NameItem name={right} align="left" /></div>
                             </React.Fragment>
                           ))}
                         </div>
