@@ -16,6 +16,20 @@ interface PrincipalSponsor {
   FemalePrincipalSponsor: string
 }
 
+/** Couple peer sponsors: [left, right] pairs for 2-column layout */
+const PEER_COUPLES: [string, string][] = [
+  ["Dr. Aprilee Sta. Lucia-Tolentino", "Mr. Joseph Dean Tolentino"],
+  ["Mrs. Janzel Abad", "Mr. Chester Owen Diokno"],
+  ["Mrs. Meg Angeli Borromeo", "Mr. Elbert June Borromeo"],
+  ["Dr. Ardys Pelayo", "Dr. Jerald Pelayo"],
+  ["Mrs. Christine Arengo", "Mr. Arturo Arengo"],
+]
+/** Single peer sponsors: 1-column centered */
+const PEER_SINGLES: string[] = [
+  "Mr. Warnet Hernandez",
+  "Atty. Richmund Sta. Lucia",
+]
+
 export function PrincipalSponsors() {
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -228,6 +242,39 @@ export function PrincipalSponsors() {
                       ))}
                     </div>
                   </div>
+
+                  {/* Peer Sponsors: 2-col couples + 1-col single centered */}
+                  {(PEER_COUPLES.length > 0 || PEER_SINGLES.length > 0) && (
+                    <div className="pt-2 sm:pt-3 md:pt-4 border-t border-white/10">
+                      <SectionTitle align="center" className="mb-1 sm:mb-2">
+                        Joint Sponsors
+                      </SectionTitle>
+                      <p className="text-white/75 font-serif text-base sm:text-lg text-center mb-4">Our cherished younger mentors</p>
+                      {PEER_COUPLES.length > 0 && (
+                        <div className="grid grid-cols-1 min-[350px]:grid-cols-2 gap-x-1.5 sm:gap-x-2 md:gap-x-3 gap-y-1 sm:gap-y-1.5 md:gap-y-2 items-stretch mb-4 sm:mb-6">
+                          {PEER_COUPLES.map(([left, right], idx) => (
+                            <React.Fragment key={`peer-couple-${idx}-${left}-${right}`}>
+                              <div className="px-2 sm:px-3 md:px-4">
+                                <NameItem name={left} align="right" />
+                              </div>
+                              <div className="px-2 sm:px-3 md:px-4">
+                                <NameItem name={right} align="left" />
+                              </div>
+                            </React.Fragment>
+                          ))}
+                        </div>
+                      )}
+                      {PEER_SINGLES.length > 0 && (
+                        <div className="flex flex-col items-center justify-center max-w-md mx-auto space-y-0.5 sm:space-y-1">
+                          {PEER_SINGLES.map((name) => (
+                            <div key={name} className="w-full flex justify-center">
+                              <NameItem name={name} align="center" />
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
