@@ -7,7 +7,7 @@ export const siteConfig = {
   },
   wedding: {
     date: "June 7, 2026",
-    time: "4:15 PM, PH Time",
+    time: "3:30 PM, PH Time",
     venue: "Patio Luisa",
     tagline: "are getting married!",
     theme: "Spring Theme, Water Paint flowers (Garden wedding)",
@@ -23,7 +23,7 @@ export const siteConfig = {
     venue: "Patio Luisa",
     date: "June 7, 2026",
     day: "Sunday",
-    time: "4:15 PM, PH Time",
+    time: "3:30 PM, PH Time",
     entourageTime: "3:45 PM",
     guestsTime: "3:45 PM",
   },

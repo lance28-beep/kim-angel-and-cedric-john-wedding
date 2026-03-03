@@ -20,7 +20,7 @@ const faqItems: FAQItem[] = [
   {
     question: "When is the wedding?",
     answer:
-      "Our wedding will be held on April 30, 2026. The wedding ceremony will start at exactly 4:00 PM, PH Time. We kindly ask guests to arrive by 3:30 PM to help us begin promptly.",
+      `Our wedding will be held on ${siteContent.wedding.date}. The wedding ceremony will start at exactly ${siteContent.wedding.time}. We kindly ask guests to arrive by ${siteContent.ceremony.time} to help us begin promptly.`,
   },
   {
     question: "Where will the ceremony and reception take place?",
