@@ -19,7 +19,7 @@ interface PrincipalSponsor {
 /** Couple peer sponsors: [left, right] pairs for 2-column layout */
 const PEER_COUPLES: [string, string][] = [
   ["Dr. Aprilee Sta. Lucia-Tolentino", "Mr. Joseph Dean Tolentino"],
-  ["Mrs. Janzel Abad", "Mr. Chester Owen Diokno"],
+  ["Mrs. Janzel Abad", "Dr. Chester Owen Diokno"],
   ["Mrs. Meg Angeli Borromeo", "Mr. Elbert June Borromeo"],
   ["Dr. Ardys Pelayo", "Dr. Jerald Pelayo"],
   ["Mrs. Christine Arengo", "Mr. Arturo Arengo"],
@@ -275,8 +275,8 @@ export function PrincipalSponsors() {
                   {/* Joint Sponsors — hardcoded PEER_COUPLES and PEER_SINGLES only */}
                   {(PEER_COUPLES.length > 0 || PEER_SINGLES.length > 0) && (
                     <div className="pt-2 sm:pt-3 md:pt-4 border-t border-white/10">
-                      <SectionTitle align="center" className="mb-1 sm:mb-2">Joint Sponsors</SectionTitle>
-                      <p className="text-white/75 font-serif text-base sm:text-lg text-center mb-4">Our cherished younger mentors</p>
+                      <SectionTitle align="center" className="mb-1 sm:mb-2">Junior Sponsors</SectionTitle>
+                      <p className="text-white/75 font-serif text-base sm:text-lg text-center mb-4">Our cherished young mentors</p>
                       {PEER_COUPLES.length > 0 && (
                         <div className="grid grid-cols-1 min-[350px]:grid-cols-2 gap-x-1.5 sm:gap-x-2 md:gap-x-3 gap-y-1 sm:gap-y-1.5 md:gap-y-2 items-stretch mb-4 sm:mb-6">
                           {PEER_COUPLES.map(([left, right], idx) => (

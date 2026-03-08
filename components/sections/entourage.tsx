@@ -323,10 +323,10 @@ export function Entourage() {
                       )}
                       <TwoColumnLayout singleTitle="The Couple" centerContent={true}>
                         <div className="px-2 sm:px-3 md:px-4">
-                          {bride && <NameItem member={bride} align="right" />}
+                          {groom && <NameItem member={groom} align="right" />}
                         </div>
                         <div className="px-2 sm:px-3 md:px-4">
-                          {groom && <NameItem member={groom} align="left" />}
+                          {bride && <NameItem member={bride} align="left" />}
                         </div>
                       </TwoColumnLayout>
                     </div>
