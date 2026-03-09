@@ -19,7 +19,7 @@ interface PrincipalSponsor {
 /** Couple peer sponsors: [left, right] pairs for 2-column layout */
 const PEER_COUPLES: [string, string][] = [
   ["Dr. Aprilee Sta. Lucia-Tolentino", "Mr. Joseph Dean Tolentino"],
-  ["Mrs. Janzel Abad", "Dr. Chester Owen Diokno"],
+  ["Mrs. Janzel Diokno ", "Dr. Chester Owen Diokno"],
   ["Mrs. Meg Angeli Borromeo", "Mr. Elbert June Borromeo"],
   ["Dr. Ardys Pelayo", "Dr. Jerald Pelayo"],
   ["Mrs. Christine Arengo", "Mr. Arturo Arengo"],
