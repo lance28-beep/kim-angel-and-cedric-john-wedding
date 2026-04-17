@@ -6,12 +6,15 @@ import { Cormorant_Garamond, WindSong } from "next/font/google"
 import { siteConfig } from "@/content/site"
 
 const desktopImages = [
-  "/desktop-background/couple 1.JPG"
+  "/desktop-background/couple (5).webp"
 ]
-
 const mobileImages = [
-  "/mobile-background/couple 1.JPG",
-  "/mobile-background/couple 2.JPG",
+  "/mobile-background/couple (1).webp",
+  "/mobile-background/couple (2).webp",
+  "/mobile-background/couple (3).webp",
+  "/mobile-background/couple (4).webp",
+  "/mobile-background/couple (5).webp",
+  "/mobile-background/couple (6).webp",
 ]
 
 const SHOW_BUTTERFLIES = false

@@ -10,9 +10,9 @@ import { siteConfig } from "@/content/site"
 import { Cormorant_Garamond } from "next/font/google"
 
 const favoriteMoments = [
-  { src: "/mobile-background/couple 1.JPG", alt: "Wedding moment 1" },
-  { src: "/mobile-background/couple 2.JPG", alt: "Wedding moment 2" },
-  { src: "/desktop-background/couple 1.JPG", alt: "Wedding moment 3" },
+  { src: "/boxes/box (1).webp", alt: "Wedding moment 1" },
+  { src: "/boxes/box (2).webp", alt: "Wedding moment 2" },
+  { src: "/desktop-background/couple (7).webp", alt: "Wedding moment 3" },
 ]
 
 const cormorant = Cormorant_Garamond({

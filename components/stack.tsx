@@ -65,13 +65,14 @@ export default function Stack({
     cardsData.length
       ? cardsData
       : [
-          { id: 1, img: "/Couple_img/couple_5.png" },
-          { id: 2, img: "/Couple_img/couple_1.png" },
-          { id: 3, img: "/Couple_img/couple_3.png" },
-          { id: 4, img: "/Couple_img/couple_4.png" },
-          { id: 5, img: "/Couple_img/couple_2.png" },
-          { id: 6, img: "/Couple_img/couple_6.png" },
-          { id: 7, img: "/Couple_img/couple_7.png" },
+          { id: 1, img: "/mobile-background/couple (1).webp" },
+          { id: 2, img: "/mobile-background/couple (2).webp" },
+          { id: 3, img: "/mobile-background/couple (3).webp" },
+          { id: 4, img: "/mobile-background/couple (4).webp" },
+          { id: 5, img: "/mobile-background/couple (5).webp" },
+          { id: 6, img: "/mobile-background/couple (6).webp" },
+          { id: 7, img: "/mobile-background/couple 1.webp" },
+          { id: 8, img: "/mobile-background/couple 2.webp" },
         ],
   )
 

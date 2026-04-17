@@ -83,8 +83,9 @@ export function Navbar() {
   const menuItems = useMemo(() => navLinks.map((l) => ({ label: l.label, ariaLabel: `Go to ${l.label}`, link: l.href })), [])
 
   return (
+    <>
     <nav
-      className={`sticky top-0 z-50 transition-all duration-700 ease-out ${
+      className={`fixed inset-x-0 top-0 z-50 w-full transition-all duration-700 ease-out ${
         isScrolled
           ? "bg-[#525E2C]/96 backdrop-blur-xl shadow-[0_10px_40px_rgba(10,20,10,0.65)] border-b border-[#E0CFB5]/70"
           : "bg-[#525E2C]/92 backdrop-blur-lg border-b border-[#E0CFB5]/50"
@@ -174,5 +175,7 @@ export function Navbar() {
 
       </div>
     </nav>
+    <div aria-hidden="true" className="h-14 sm:h-16 md:h-20" />
+    </>
   )
 }

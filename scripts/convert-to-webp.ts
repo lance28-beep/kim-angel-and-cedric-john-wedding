@@ -2,7 +2,11 @@ import fs from "fs";
 import path from "path";
 import sharp from "sharp";
 
-const IMAGES_DIR = path.resolve(process.cwd(), "public", "Couple_img");
+const TARGET_DIRECTORIES = [
+  path.resolve(process.cwd(), "public", "desktop-background"),
+  path.resolve(process.cwd(), "public", "mobile-background"),
+  path.resolve(process.cwd(), "public", "boxes"),
+];
 
 const VALID_INPUT_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG"]);
 
@@ -19,24 +23,43 @@ async function convertImageToWebp(inputPath: string, quality: number = 80): Prom
   await image.webp({ quality }).toFile(outputPath);
 }
 
+function collectImagePathsRecursively(directoryPath: string): string[] {
+  const entries = fs.readdirSync(directoryPath, { withFileTypes: true });
+  const files: string[] = [];
+
+  for (const entry of entries) {
+    const fullPath = path.join(directoryPath, entry.name);
+
+    if (entry.isDirectory()) {
+      files.push(...collectImagePathsRecursively(fullPath));
+      continue;
+    }
+
+    if (entry.isFile() && VALID_INPUT_EXTENSIONS.has(path.extname(entry.name))) {
+      files.push(fullPath);
+    }
+  }
+
+  return files;
+}
+
 async function main(): Promise<void> {
-  if (!fs.existsSync(IMAGES_DIR)) {
-    console.error(`Directory not found: ${IMAGES_DIR}`);
+  const missingDirectories = TARGET_DIRECTORIES.filter((directoryPath) => !fs.existsSync(directoryPath));
+  if (missingDirectories.length > 0) {
+    for (const missingPath of missingDirectories) {
+      console.error(`Directory not found: ${missingPath}`);
+    }
     process.exit(1);
   }
 
-  const entries = fs.readdirSync(IMAGES_DIR);
-
-  const targets = entries
-    .filter((name) => VALID_INPUT_EXTENSIONS.has(path.extname(name)))
-    .map((name) => path.join(IMAGES_DIR, name));
+  const targets = TARGET_DIRECTORIES.flatMap((directoryPath) => collectImagePathsRecursively(directoryPath));
 
   if (targets.length === 0) {
-    console.log("No JPG/PNG images found to convert.");
+    console.log("No JPG/PNG images found to convert in target directories.");
     return;
   }
 
-  console.log(`Converting ${targets.length} images in ${IMAGES_DIR} to WebP...`);
+  console.log(`Converting ${targets.length} images to WebP from target directories...`);
 
   let converted = 0;
   for (const file of targets) {

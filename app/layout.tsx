@@ -1,11 +1,12 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Great_Vibes, Inter, Imperial_Script } from "next/font/google"
+import localFont from "next/font/local"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kim-angel-and-cedric-john-wedding.netlify.app/"
 const canonicalUrl = siteUrl.replace(/\/$/, "")
-const eventImagePath = "/desktop-background/couple 1.JPG"
+const eventImagePath = "/Details/LinkPreview.jpg"
 const eventImageUrl = `${canonicalUrl}${eventImagePath}`
 const eventTitle = "Cedric John & Kim Angel - Wedding Invitation"
 const eventDescription =
@@ -44,6 +45,11 @@ const jsonLd = {
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const greatVibes = Great_Vibes({ subsets: ["latin"], weight: "400", variable: "--font-serif" })
 const imperialScript = Imperial_Script({ subsets: ["latin"], weight: "400", variable: "--font-imperial-script" })
+const brittanySignature = localFont({
+  src: "../brittany-signature-script/BrittanySignatureScript.ttf",
+  variable: "--font-brittany",
+  display: "swap",
+})
 
 export const metadata: Metadata = {
   title: eventTitle,
@@ -143,10 +149,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Lavishly+Yours&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Style+Script&display=swap" rel="stylesheet" />
-        <link rel="preload" as="image" href="/mobile-background/DSCF2614-min.jpg" media="(max-width: 767px)" />
-        <link rel="preload" as="image" href="/desktop-background/DSCF2444-min.jpg" media="(min-width: 768px)" />
+        <link rel="preload" as="image" href="/mobile-background/couple (1).webp" media="(max-width: 767px)" />
+        <link rel="preload" as="image" href="/desktop-background/couple (1).webp" media="(min-width: 768px)" />
       </head>
-      <body className={`${inter.variable} ${greatVibes.variable} ${imperialScript.variable} font-inter antialiased text-foreground`}>
+      <body className={`${inter.variable} ${greatVibes.variable} ${imperialScript.variable} ${brittanySignature.variable} font-inter antialiased text-foreground`}>
         {children}
         <Analytics />
       </body>
