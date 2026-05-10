@@ -23,6 +23,7 @@ import { SnapShare } from "@/components/sections/snap-share"
 import { Footer } from "@/components/sections/footer"
 import BackgroundMusic from "@/components/background-music"
 import { Navbar } from "@/components/navbar"
+import { CoupleVideo } from "@/components/sections/couple-video"
 
 const Silk = dynamic(() => import("@/components/silk"), { ssr: false })
 const GuestList = dynamic(() => import("@/components/sections/guest-list").then(mod => ({ default: mod.GuestList })), { ssr: false })
@@ -62,7 +63,7 @@ export default function Home() {
               {appState === AppState.DETAILS && <Navbar />}
               <MainHero />
           <Welcome />
-          {/* <CoupleVideo /> */}
+          <CoupleVideo />
           <Countdown />
           <Narrative />
           <Gallery />

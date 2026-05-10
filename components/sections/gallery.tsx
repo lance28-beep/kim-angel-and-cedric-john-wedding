@@ -1,21 +1,15 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
-import NextImage from "next/image"
-import { X, ChevronLeft, ChevronRight } from "lucide-react"
 import { Section } from "@/components/section"
+import { X, ChevronLeft, ChevronRight } from "lucide-react"
 import { motion } from "motion/react"
-import { Cormorant_Garamond, WindSong } from "next/font/google"
+import { Cormorant_Garamond } from "next/font/google"
 // Removed circular gallery in favor of a responsive masonry layout
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-})
-
-const windSong = WindSong({
-  subsets: ["latin"],
-  weight: "400",
 })
 
 const galleryHashtag = "#CedAndKimWedding"
@@ -109,29 +103,20 @@ export function Gallery() {
   return (
     <Section
       id="gallery"
-      className="relative bg-[#525E2C] py-10 sm:py-12 md:py-16 lg:py-20 overflow-hidden"
+      className="relative bg-[#909E8D] py-10 sm:py-12 md:py-16 lg:py-20 overflow-hidden"
     >
-      {/* Background image and decorative overlays */}
+      {/* Background — sage motif (aligned with narrative & couple video) */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Grunge texture background */}
-        <img
-          src="/decoration/Grunge.jpg"
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+        <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-[#3D4636]/92 via-[#909E8D]/75 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#3D4636]/95 via-[#909E8D]/70 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(224,207,181,0.28),transparent_55%)] opacity-90" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#909E8D]/25 via-transparent to-[#F0F0EE]/10 mix-blend-soft-light" />
 
-        {/* Soft vertical gradients in deep sage */}
-        <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#2F3724]/90 via-[#525E2C]/70 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-[#2F3724]/95 via-[#525E2C]/70 to-transparent" />
-        {/* Warm radial spotlight in champagne */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(224,207,181,0.3),transparent_55%)] opacity-90" />
-
-        {/* Floating decorative circles with motif colors */}
-        <div className="absolute top-6 left-8 w-32 h-32 bg-[#909E8D]/26 rounded-full blur-3xl animate-pulse-slow" />
-        <div className="absolute top-16 right-12 w-24 h-24 bg-[#E0CFB5]/26 rounded-full blur-2xl animate-pulse-slow" style={{ animationDelay: "1s" }} />
+        {/* Floating decorative circles */}
+        <div className="absolute top-6 left-8 w-32 h-32 bg-[#3D4636]/20 rounded-full blur-3xl animate-pulse-slow" />
+        <div className="absolute top-16 right-12 w-24 h-24 bg-[#E0CFB5]/28 rounded-full blur-2xl animate-pulse-slow" style={{ animationDelay: "1s" }} />
         <div className="absolute bottom-20 left-16 w-28 h-28 bg-[#F0F0EE]/22 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: "2s" }} />
-        <div className="absolute bottom-10 right-10 w-20 h-20 bg-[#D1AB6D]/26 rounded-full blur-2xl animate-pulse-slow" style={{ animationDelay: "0.5s" }} />
+        <div className="absolute bottom-10 right-10 w-20 h-20 bg-[#D1AB6D]/24 rounded-full blur-2xl animate-pulse-slow" style={{ animationDelay: "0.5s" }} />
       </div>
 
       {/* Header */}
@@ -144,8 +129,8 @@ export function Gallery() {
             Moments with Kim &amp; Ced
           </p>
           <h2
-            className="style-script-regular text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white"
-            style={{ textShadow: "0 4px 18px rgba(0,0,0,0.9)" }}
+            className="style-script-regular text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-normal"
+            style={{ textShadow: "0 4px 18px rgba(0,0,0,0.85)" }}
           >
             A glimpse into our story
           </h2>
@@ -179,7 +164,7 @@ export function Gallery() {
           <div className="max-w-5xl w-full">
             {isLoading ? (
               <div className="flex items-center justify-center h-48 sm:h-60 md:h-72">
-                <div className="w-10 h-10 border-[3px] border-[#F7E7CE]/40 border-t-[#B76E79] rounded-full animate-spin" />
+                <div className="w-10 h-10 border-[3px] border-white/35 border-t-[#D1AB6D] rounded-full animate-spin" />
               </div>
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3.5 md:gap-4.5">
@@ -215,7 +200,7 @@ export function Gallery() {
                     </div>
                     
                     {/* Image counter badge with motif colors */}
-                    <div className="absolute top-2 right-2 bg-[#525E2C]/90 backdrop-blur-sm rounded-full px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 border border-[#E0CFB5]/70">
+                    <div className="absolute top-2 right-2 bg-[#3D4636]/90 backdrop-blur-sm rounded-full px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 border border-[#E0CFB5]/70">
                       <span className="text-xs font-medium text-white tracking-wide">
                         {index + 1}/{galleryItems.length}
                       </span>
@@ -397,16 +382,16 @@ export function Gallery() {
           </div>
         </div>
       )}
-      {/* View more button with sage motif */}
+      {/* View more — sage & champagne */}
       <div className="relative z-10 mt-8 sm:mt-10 md:mt-12 flex justify-center px-4">
         <motion.a
           href="/gallery"
-          className="group inline-flex items-center gap-2 px-6 sm:px-8 md:px-10 lg:px-12 py-3 sm:py-3.5 md:py-4 rounded-lg sm:rounded-xl font-semibold sm:font-bold transition-all duration-300 uppercase tracking-wider text-xs sm:text-sm md:text-base whitespace-nowrap relative overflow-hidden border-2 backdrop-blur-sm"
+          className={`${cormorant.className} group inline-flex items-center gap-2 px-6 sm:px-8 md:px-10 lg:px-12 py-3 sm:py-3.5 md:py-4 rounded-lg sm:rounded-xl font-semibold sm:font-bold transition-all duration-300 uppercase tracking-wider text-xs sm:text-sm md:text-base whitespace-nowrap relative overflow-hidden border-2 backdrop-blur-sm`}
           style={{
-            backgroundImage: "linear-gradient(135deg, #525E2C, #909E8D)",
+            backgroundImage: "linear-gradient(135deg, #3D4636, #707C6A)",
             borderColor: "#E0CFB5",
             color: "#FFFFFF",
-            boxShadow: "0 6px 26px rgba(0,0,0,0.45), 0 2px 10px rgba(82,94,44,0.6)",
+            boxShadow: "0 6px 26px rgba(0,0,0,0.45), 0 2px 10px rgba(61,70,54,0.55)",
           }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -415,14 +400,14 @@ export function Gallery() {
           whileHover={{ scale: 1.05, y: -2 }}
           whileTap={{ scale: 0.98 }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundImage = "linear-gradient(135deg, #3F4A23, #7F8F76)";
+            e.currentTarget.style.backgroundImage = "linear-gradient(135deg, #2a3028, #909E8D)";
             e.currentTarget.style.borderColor = "#D1AB6D";
-            e.currentTarget.style.boxShadow = "0 10px 34px rgba(0,0,0,0.55), 0 4px 14px rgba(82,94,44,0.8)";
+            e.currentTarget.style.boxShadow = "0 10px 34px rgba(0,0,0,0.55), 0 4px 14px rgba(61,70,54,0.65)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundImage = "linear-gradient(135deg, #525E2C, #909E8D)";
+            e.currentTarget.style.backgroundImage = "linear-gradient(135deg, #3D4636, #707C6A)";
             e.currentTarget.style.borderColor = "#E0CFB5";
-            e.currentTarget.style.boxShadow = "0 6px 26px rgba(0,0,0,0.45), 0 2px 10px rgba(82,94,44,0.6)";
+            e.currentTarget.style.boxShadow = "0 6px 26px rgba(0,0,0,0.45), 0 2px 10px rgba(61,70,54,0.55)";
           }}
         >
           <span className="relative z-10">View Full Gallery</span>
