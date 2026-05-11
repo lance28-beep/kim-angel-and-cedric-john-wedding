@@ -22,7 +22,7 @@ const PEER_COUPLES: [string, string][] = [
   ["Mrs. Janzel Diokno ", "Dr. Chester Owen Diokno"],
   ["Mrs. Meg Angeli Borromeo", "Mr. Elbert June Borromeo"],
   ["Dr. Ardys Pelayo", "Dr. Jerald Pelayo"],
-  ["Mrs. Christine Arengo", "Mr. Arturo Arengo"],
+  ["Mrs. Christine Sanchez", "Mr. Arturo Arengo"],
 ]
 /** Single peer sponsors: 1-column centered */
 const PEER_SINGLES: string[] = [
